@@ -1,0 +1,85 @@
+# KESL 12.1 — Container Scan
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Container Scan"
+  name: "Enabled"
+  value_type: bool
+  default_value: false
+  description: "Enable scanning of Docker and container images for malicious content."
+  purpose: "Detects malware, backdoors, and known-vulnerable packages baked into container images before they launch."
+  added_in_version: "12.1"
+  tradeoffs_pros:
+    - "Catches malicious base images and compromised dependencies at container launch time."
+    - "Provides a last line of defence when CI/CD pipeline image scanning is missing or incomplete."
+  tradeoffs_cons:
+    - "Scanning large images at launch adds latency to container startup time. Pre-scan images in CI/CD pipeline instead."
+    - "Disabled by default because it requires Docker daemon access and can add startup latency in container-heavy environments."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Container Scan"
+  name: "Scan images on container launch"
+  value_type: bool
+  default_value: true
+  description: "Scan each container image the first time a container is launched from it."
+  purpose: "Prevents a malicious image from running even if it was pulled from an unscanned source."
+  added_in_version: "12.1"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Container Scan"
+  name: "Action on threat in container image"
+  value_type: enum
+  enum_options:
+    - "Block"
+    - "Notify"
+    - "Delete"
+  default_value: "Notify"
+  description: "Action taken when a threat is found in a container image during scanning."
+  added_in_version: "12.1"
+  tradeoffs_pros:
+    - "'Block' prevents the container from launching — the most secure option for production workloads."
+    - "'Notify' is safe for assessment mode — understand the false positive rate before enabling Block."
+  tradeoffs_cons:
+    - "'Block' will stop legitimate containers if they contain files matching a false-positive signature — test in staging first."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Container Scan"
+  name: "Docker socket path"
+  value_type: string
+  default_value: "/var/run/docker.sock"
+  description: "Path to the Docker daemon Unix socket that KESL uses to interact with the container runtime."
+  purpose: "Override if your Docker installation uses a non-standard socket path or if using Podman with a compatibility socket."
+  added_in_version: "12.1"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Container Scan"
+  name: "Scan cached layers"
+  value_type: bool
+  default_value: true
+  description: "Scan Docker image layers that are already present in the local image cache."
+  purpose: "Ensures that images pulled days ago and cached locally are also scanned, not just freshly pulled images."
+  added_in_version: "12.1"
+  tradeoffs_pros:
+    - "Catches retroactively-detected threats in images that were clean at pull time but have since been identified as malicious."
+  tradeoffs_cons:
+    - "Scanning the entire image cache at startup can be time-consuming on systems with many large images."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Container Scan"
+  name: "Trusted registries"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "registry"
+        label: "Registry URL"
+        type: string
+      - key: "comment"
+        label: "Comment"
+        type: string
+  description: "Container image registries whose images are trusted and may be excluded from scanning."
+  purpose: "Skip scanning for images from your own internal registry that are already scanned in CI/CD. Reduces startup latency."
+  added_in_version: "12.1"

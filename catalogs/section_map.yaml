@@ -1,0 +1,230 @@
+# Карта навигации политики KESL в консоли Kaspersky Security Center.
+#
+# Назначение: чтобы для каждого параметра в приложении было видно,
+# ГДЕ его искать в реальном KSC — раздел → компонент → вкладка.
+# Приложение показывает это как «хлебные крошки» рядом с группой параметров.
+#
+# Поле verified:
+#   true  — путь подтверждён официальной документацией KESL 12.x
+#   false — путь проставлен по общей таксономии KES и требует сверки
+#           с вашей консолью (названия могли быть упрощены в исходной таблице)
+#
+# Как это связывается с каталогом параметров:
+#   параметр.subcategory (из kesl_parameters.yaml)  →  ключ excel_subcategory ниже
+#   если совпадения нет — приложение помечает группу как «раздел не сопоставлен»
+
+# ─────────────────────────────────────────────────────────────
+# Каноническое дерево разделов политики KESL в консоли KSC (RU)
+# ─────────────────────────────────────────────────────────────
+sections:
+  - id: general
+    name: Общие параметры
+    components:
+      - { id: app_settings, name: Параметры приложения }
+      - { id: network_settings, name: Параметры сети }
+      - { id: exclusions, name: Исключения и доверенная зона }
+      - { id: reports_storage, name: Отчёты и хранилище }
+      - { id: interface, name: Интерфейс }
+      - { id: ksc_integration, name: Интеграция с KSC }
+      - { id: support, name: Служба технической поддержки }
+
+  - id: essential_tp
+    name: Базовая защита от угроз
+    components:
+      - { id: file_tp, name: Защита от файловых угроз }
+      - { id: network_tp, name: Защита от сетевых угроз }
+      - { id: web_tp, name: Защита от веб-угроз }
+      - { id: mail_tp, name: Защита от почтовых угроз }
+      - { id: firewall, name: Управление сетевым экраном }
+      - { id: anti_cryptor, name: Защита от шифрования }
+      # официальный компонент KESL 12.4 (support.kaspersky.ru/kes-for-linux/12.4.0/263901)
+      - { id: container_monitoring, name: Мониторинг контейнеров }
+
+  - id: advanced_tp
+    name: Продвинутая защита от угроз
+    components:
+      - { id: behavior, name: Анализ поведения }
+      # ВНИМАНИЕ: в официальном списке компонентов KESL 12.4 «Защиты от эксплойтов» НЕТ
+      # (это компонент KES для Windows). Оставлен, т.к. подкатегория есть в исходной
+      # таблице; параметры требуют ручной сверки.
+      - { id: exploit_prevention, name: Защита от эксплойтов }
+      - { id: ksn, name: Kaspersky Security Network }
+
+  - id: security_controls
+    name: Контроль безопасности
+    components:
+      - { id: device_control, name: Контроль устройств }
+      - { id: web_control, name: Веб-Контроль }
+      # официальные компоненты KESL 12.4
+      - { id: app_control, name: Контроль приложений }
+      - { id: integrity_check, name: Контроль целостности системы }
+
+  - id: scan_tasks
+    name: Задачи проверки
+    components:
+      - { id: removable_scan, name: Проверка съёмных дисков }
+      - { id: badusb, name: Защита от атак BadUSB }
+
+# ─────────────────────────────────────────────────────────────
+# Сопоставление подкатегорий из исходной Excel-таблицы с путём в KSC
+# ─────────────────────────────────────────────────────────────
+mapping:
+  # --- подтверждено документацией KESL 12.x ---
+  - excel_subcategory: Защита от файловых угроз
+    section: essential_tp
+    component: file_tp
+    verified: true
+    doc_url: https://support.kaspersky.com/kes-for-linux/12.4.0/298425
+  - excel_subcategory: Защита от сетевых угроз
+    section: essential_tp
+    component: network_tp
+    verified: true
+    doc_url: https://support.kaspersky.com/KES4Linux/12.3.0/en-US/265012.htm
+  - excel_subcategory: Защита от веб-угроз
+    section: essential_tp
+    component: web_tp
+    verified: true
+    doc_url: https://support.kaspersky.com/KSMG/2.1/en-US/257586.htm
+
+  # --- компонент подтверждён документацией, но раздел (Базовая/Продвинутая)
+  #     выведен по таксономии KES — СВЕРИТЬ размещение в вашей консоли ---
+  - excel_subcategory: Защита от почтовых угроз
+    section: essential_tp
+    component: mail_tp
+    verified: false
+  - excel_subcategory: Сетевой экран
+    section: essential_tp
+    component: firewall
+    verified: false
+  - excel_subcategory: Защита от шифрования
+    section: essential_tp
+    component: anti_cryptor
+    verified: false
+    note: >-
+      Компонент Anti-Cryptor подтверждён документацией; под каким разделом
+      он в дереве политики (Базовая защита) — сверить в консоли.
+  - excel_subcategory: Анализ поведения
+    section: advanced_tp
+    component: behavior
+    verified: false
+  - excel_subcategory: Защита от эксплойтов
+    section: advanced_tp
+    component: exploit_prevention
+    verified: false
+  - excel_subcategory: Контроль устройств
+    section: security_controls
+    component: device_control
+    verified: false
+  - excel_subcategory: Веб-Контроль
+    section: security_controls
+    component: web_control
+    verified: false
+  - excel_subcategory: Защита от атак BadUSB
+    section: scan_tasks
+    component: badusb
+    verified: false
+  - excel_subcategory: Проверка съемных дисков
+    section: scan_tasks
+    component: removable_scan
+    verified: false
+
+  # --- проставлено по таксономии, СВЕРИТЬ с консолью ---
+  # Эти подкатегории в исходной таблице были упрощены/не совпадают
+  # один-к-одному с деревом KSC. Наиболее вероятная привязка:
+  - excel_subcategory: Действие при обнаружении угрозы
+    section: essential_tp
+    component: file_tp
+    verified: false
+    note: >-
+      В KSC «действие при обнаружении» — это не отдельный раздел, а группа
+      настроек внутри компонента защиты (обычно Защита от файловых угроз).
+      Уточнить, к какому именно компоненту относится каждая строка.
+  - excel_subcategory: Дополнительные настройки
+    section: essential_tp
+    component: file_tp
+    verified: false
+    note: >-
+      «Дополнительные настройки» встречаются внутри разных компонентов
+      (проверка архивов — в Защите от файловых угроз; фильтр вложений —
+      в Защите от почтовых угроз). Разнести по компонентам вручную.
+  - excel_subcategory: Режим перехвата файловых операций
+    section: essential_tp
+    component: file_tp
+    verified: false
+  - excel_subcategory: Тип проверки
+    section: scan_tasks
+    component: removable_scan
+    verified: false
+  - excel_subcategory: Защита сетевых соединений и средств коммуникации
+    section: essential_tp
+    component: mail_tp
+    verified: false
+    note: >-
+      В исходной таблице этим заголовком объединены почтовая/веб/сетевая
+      защита. В KSC это РАЗНЫЕ компоненты базовой защиты — при переносе
+      строки стоит разнести по web_tp / network_tp / mail_tp.
+  - excel_subcategory: Общие
+    section: general
+    component: app_settings
+    verified: false
+
+  # --- добавлено по итогам сверки с официальной документацией KESL 12.4 ---
+  # (подкатегории из Excel, ранее попадавшие в «Раздел не сопоставлен»)
+  - excel_subcategory: Действие при запуске приложений
+    section: security_controls
+    component: app_control
+    verified: false
+    note: >-
+      «Действие при запуске приложений» — это настройки компонента
+      Контроль приложений (официальный компонент KESL 12.4).
+  - excel_subcategory: Настройки проверки контейнеров
+    section: essential_tp
+    component: container_monitoring
+    verified: false
+    note: >-
+      Мониторинг контейнеров — официальный компонент KESL 12.4; раздел
+      в дереве политики сверить с консолью.
+  - excel_subcategory: Доверенная зона
+    section: general
+    component: exclusions
+    verified: false
+  - excel_subcategory: Общие настройки
+    section: general
+    component: app_settings
+    verified: false
+  - excel_subcategory: Настройки сети
+    section: general
+    component: network_settings
+    verified: false
+  - excel_subcategory: Отчеты и хранилище
+    section: general
+    component: reports_storage
+    verified: false
+  - excel_subcategory: Интеграция с KSC
+    section: general
+    component: ksc_integration
+    verified: false
+  - excel_subcategory: Служба технической поддержки
+    section: general
+    component: support
+    verified: false
+  - excel_subcategory: Настройки взаимодействия с ОС
+    section: general
+    component: app_settings
+    verified: false
+    note: >-
+      Взаимодействие с ОС (перехватчики, fanotify) — обычно внутри общих
+      параметров приложения; сверить с консолью.
+  - excel_subcategory: Сетевые пакетные правила
+    section: essential_tp
+    component: firewall
+    verified: false
+    note: >-
+      Пакетные правила — группа настроек внутри компонента Управление
+      сетевым экраном.
+  - excel_subcategory: Правила доступа к устройствам
+    section: security_controls
+    component: device_control
+    verified: false
+  # «Контроль безопасности» как подкатегория из Excel неоднозначна —
+  # оставлена несопоставленной намеренно (не угадываем).

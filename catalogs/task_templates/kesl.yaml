@@ -1,0 +1,93 @@
+# Шаблоны групповых задач KESL — по официальному списку задач
+# (support.kaspersky.ru/kes-for-linux/12.4.0, «Управление задачами»).
+# Системные имена задач: Scan_My_Computer, Scan_File, Critical_Areas_Scan,
+# Update, Rollback, Container_Scan, Inventory_Scan, System_Integrity_Monitoring.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  name: "Поиск вредоносного ПО"
+  description: "Полная или выборочная проверка файловой системы устройства (Scan_My_Computer). Проверяются локальные диски, смонтированные и общие ресурсы по SMB/NFS."
+  default_trigger_type: schedule
+  params_schema:
+    fields:
+      - { key: scan_scope, label: "Область проверки", type: enum, options: ["Весь компьютер", "Выборочно"] }
+      - { key: custom_paths, label: "Пути (для выборочной)", type: string }
+      - { key: action, label: "Действие при обнаружении", type: enum, options: ["Лечить, удалять если лечение невозможно", "Лечить, блокировать если лечение невозможно", "Информировать"] }
+      - { key: scan_archives, label: "Проверять архивы", type: bool }
+
+- application_name: "KESL"
+  application_version: "12.4"
+  name: "Проверка важных областей"
+  description: "Проверка загрузочных секторов, объектов автозапуска, памяти процессов и памяти ядра (Critical_Areas_Scan)."
+  default_trigger_type: schedule
+  params_schema:
+    fields:
+      - { key: action, label: "Действие при обнаружении", type: enum, options: ["Лечить, удалять если лечение невозможно", "Лечить, блокировать если лечение невозможно", "Информировать"] }
+
+- application_name: "KESL"
+  application_version: "12.4"
+  name: "Выборочная проверка"
+  description: "Проверка отдельных файлов и каталогов по заданному списку (Scan_File)."
+  default_trigger_type: schedule
+  params_schema:
+    fields:
+      - { key: paths, label: "Пути для проверки", type: string }
+      - { key: action, label: "Действие при обнаружении", type: enum, options: ["Лечить, удалять если лечение невозможно", "Лечить, блокировать если лечение невозможно", "Информировать"] }
+
+- application_name: "KESL"
+  application_version: "12.4"
+  name: "Обновление"
+  description: "Обновление антивирусных баз и модулей приложения (Update). Источник обновлений задаётся политикой."
+  default_trigger_type: schedule
+  params_schema:
+    fields:
+      - { key: source, label: "Источник обновлений", type: enum, options: ["Сервер администрирования", "Серверы обновлений Kaspersky", "Другой источник"] }
+      - { key: custom_source, label: "Адрес источника (если другой)", type: string }
+
+- application_name: "KESL"
+  application_version: "12.4"
+  name: "Откат обновления баз"
+  description: "Откат антивирусных баз к предыдущей установленной версии (Rollback)."
+  default_trigger_type: on_event
+  params_schema:
+    fields: []
+
+- application_name: "KESL"
+  application_version: "12.4"
+  name: "Инвентаризация"
+  description: "Сбор информации об исполняемых файлах на устройстве (Inventory_Scan). Результаты используются Контролем приложений."
+  default_trigger_type: schedule
+  params_schema:
+    fields:
+      - { key: scan_scope, label: "Область инвентаризации", type: string }
+      - { key: include_scripts, label: "Учитывать скрипты", type: bool }
+
+- application_name: "KESL"
+  application_version: "12.4"
+  name: "Проверка контейнеров"
+  description: "Проверка контейнеров и образов по требованию (Container_Scan / Custom_Container_Scan). Требует настроенной интеграции с Docker/CRI-O/Podman."
+  default_trigger_type: schedule
+  params_schema:
+    fields:
+      - { key: scope, label: "Что проверять", type: enum, options: ["Все контейнеры и образы", "По маске имени"] }
+      - { key: name_mask, label: "Маска имени", type: string }
+      - { key: action, label: "Действие при обнаружении", type: enum, options: ["Остановить контейнер", "Информировать"] }
+
+- application_name: "KESL"
+  application_version: "12.4"
+  name: "Проверка целостности системы"
+  description: "Проверка целостности системы по эталону (System_Integrity_Monitoring, ODFIM). Сравнивает состояние файлов с зафиксированной базовой линией."
+  default_trigger_type: schedule
+  params_schema:
+    fields:
+      - { key: rebaseline, label: "Обновить эталон после проверки", type: bool }
+
+- application_name: "KESL"
+  application_version: "12.4"
+  name: "Добавление ключа"
+  description: "Активация приложения — добавление лицензионного ключа (License)."
+  default_trigger_type: on_event
+  params_schema:
+    fields:
+      - { key: key_file, label: "Файл ключа / код активации", type: string }
+      - { key: as_reserve, label: "Добавить как резервный", type: bool }

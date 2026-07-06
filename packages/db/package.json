@@ -1,0 +1,30 @@
+{
+  "name": "@ksc/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "generate": "prisma generate",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "migrate:reset": "prisma migrate reset --force",
+    "seed": "tsx src/seed.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.18.0"
+  },
+  "prisma": {
+    "seed": "tsx src/seed.ts"
+  },
+  "devDependencies": {
+    "prisma": "^5.18.0",
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4",
+    "js-yaml": "^4.1.0",
+    "@types/js-yaml": "^4.0.9",
+    "glob": "^11.0.0"
+  }
+}

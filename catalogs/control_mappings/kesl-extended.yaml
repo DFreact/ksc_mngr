@@ -1,0 +1,207 @@
+# Extended control mappings — new components added in content pass
+
+# ─── Web Threat Protection ────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Web Threat Protection"
+  parameter_name: "Enabled"
+  required_state:
+    value: true
+  coverage_strength: prevents
+  threat_vector_names:
+    - Drive-by компрометация через браузер
+    - Компрометация цепочки поставок ПО
+  notes: >
+    Web Threat Protection blocks HTTP/HTTPS downloads of malicious content in real time,
+    including drive-by downloads and package manager requests to malicious repositories.
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Web Threat Protection"
+  parameter_name: "Action on malicious URL"
+  required_state:
+    value: "Block"
+  coverage_strength: prevents
+  threat_vector_names:
+    - Drive-by компрометация через браузер
+  notes: >
+    "Block" action prevents the download entirely. "Warn" only notifies the user,
+    who may proceed — not a preventive control.
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Web Threat Protection"
+  parameter_name: "Heuristic analysis"
+  required_state:
+    value: true
+  coverage_strength: partial
+  threat_vector_names:
+    - Drive-by компрометация через браузер
+    - Фишинговое вложение в почте
+  notes: >
+    Heuristic analysis catches new phishing campaigns and malicious pages not yet
+    in the signature database. Provides partial coverage of novel threats.
+
+# ─── Firewall Management ─────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Firewall Management"
+  parameter_name: "Enabled"
+  required_state:
+    value: true
+  coverage_strength: partial
+  threat_vector_names:
+    - Эксплуатация публично доступной службы
+    - Распространение шифровальщика по SMB/NFS
+    - Утечка по альтернативному сетевому каналу
+  notes: >
+    Enabling Firewall Management allows policy-based network controls.
+    Actual prevention depends on the specific rules configured — Enabled alone is partial.
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Firewall Management"
+  parameter_name: "Default incoming packet action"
+  required_state:
+    value: "Block"
+  coverage_strength: prevents
+  threat_vector_names:
+    - Эксплуатация публично доступной службы
+    - Распространение шифровальщика по SMB/NFS
+  notes: >
+    Default-deny incoming prevents unsolicited connection attempts — core defence
+    against network exploits targeting exposed services.
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Firewall Management"
+  parameter_name: "Default outgoing packet action"
+  required_state:
+    value: "Block"
+  coverage_strength: prevents
+  threat_vector_names:
+    - Утечка по альтернативному сетевому каналу
+    - Кража данных на съёмный носитель
+  notes: >
+    Default-deny outgoing (egress filtering) prevents malware C2 communication
+    and data exfiltration over unknown ports or protocols.
+
+# ─── Application Control ─────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Application Control"
+  parameter_name: "Enabled"
+  required_state:
+    value: true
+  coverage_strength: detects
+  threat_vector_names:
+    - Вредоносный shell-скрипт (bash/sh)
+    - Эксплуатация публично доступной службы
+    - Вредоносный модуль ядра / руткит
+  notes: >
+    Application Control monitors and logs all execution attempts.
+    Detection strength; prevention depends on Mode setting (Allowlist).
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Application Control"
+  parameter_name: "Mode"
+  required_state:
+    value: "Allowlist"
+  coverage_strength: prevents
+  threat_vector_names:
+    - Вредоносный shell-скрипт (bash/sh)
+    - Эксплуатация публично доступной службы
+    - Отключение или вмешательство в средства защиты
+    - Компрометация цепочки поставок ПО
+  notes: >
+    Allowlist mode prevents any unlisted executable from running — the strongest
+    application control posture. Requires a complete, maintained application inventory.
+
+# ─── Behavior Detection ──────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Behavior Detection"
+  parameter_name: "Enabled"
+  required_state:
+    value: true
+  coverage_strength: detects
+  threat_vector_names:
+    - Отключение или вмешательство в средства защиты
+    - Закрепление через cron или systemd-таймер
+    - Вредоносный модуль ядра / руткит
+    - Эксплуатация публично доступной службы
+  notes: >
+    Behavior Detection monitors process behavior using BSS signatures. It detects
+    but may not prevent all behavioral threats — blocking depends on Action setting.
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Behavior Detection"
+  parameter_name: "Action on detection of harmful activity"
+  required_state:
+    value: "Block and rollback"
+  coverage_strength: prevents
+  threat_vector_names:
+    - Отключение или вмешательство в средства защиты
+    - Шифрование локальных файлов шифровальщиком
+    - Уничтожение данных (wiper)
+  notes: >
+    "Block and rollback" both terminates the malicious process AND attempts to
+    undo its changes. Critical for ransomware containment.
+
+# ─── System Integrity Check ──────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "System Integrity Check"
+  parameter_name: "Enabled"
+  required_state:
+    value: true
+  coverage_strength: detects
+  threat_vector_names:
+    - Вредоносный модуль ядра / руткит
+    - Закрепление через cron или systemd-таймер
+    - Отключение или вмешательство в средства защиты
+    - Подмена или добавление системного бинарника
+  notes: >
+    SIC detects any unauthorized modification to monitored files — critical for
+    detecting post-compromise persistence and rootkit installation.
+
+# ─── Container Scan ──────────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Container Scan"
+  parameter_name: "Enabled"
+  required_state:
+    value: true
+  coverage_strength: prevents
+  threat_vector_names:
+    - Компрометация цепочки поставок ПО
+    - Фишинговое вложение в почте
+  notes: >
+    Container Scan prevents malicious container images from launching,
+    acting as a final check point for images that bypass CI/CD scanning.
+
+# ─── General — KSN ───────────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  parameter_name: "Use KSN for scanning"
+  required_state:
+    value: true
+  coverage_strength: partial
+  threat_vector_names:
+    - Фишинговое вложение в почте
+    - Drive-by компрометация через браузер
+    - Упакованное или обфусцированное ВПО
+  notes: >
+    KSN provides real-time cloud reputation for files and URLs. Significantly
+    improves detection of new threats within hours of discovery globally.
+    Partial because it requires network connectivity to the KSN proxy.

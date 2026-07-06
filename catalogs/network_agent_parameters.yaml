@@ -1,0 +1,457 @@
+- id: agent.общие.наследование_параметров.x.наследовать_параметры_родительской_политики
+  application: network_agent
+  category: Общие
+  subcategory: Наследование параметров
+  group: null
+  name: Наследовать параметры родительской политики
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.общие.наследование_параметров.x.обеспечить_принудительное_наследование_параметров_для_дочерних_политик
+  application: network_agent
+  category: Общие
+  subcategory: Наследование параметров
+  group: null
+  name: Обеспечить принудительное наследование параметров для дочерних политик
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.параметры.x.распространять_файлы_только_через_точки_распространенния
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Параметры
+  group: null
+  name: Распространять файлы только через точки распространенния
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.параметры.x.максимальный_размер_очереди_событиймб
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Параметры
+  group: null
+  name: Максимальный размер очереди событий(МБ)
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.параметры.x.приложение_может_получать_расширенные_данные_политики_на_устройстве
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Параметры
+  group: null
+  name: Приложение может получать расширенные данные политики на устройстве
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.параметры.x.защитить_службу_агента_администрирования_от_неавторизованного_удаления_остановки_или_изменения_параметров_работы
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Параметры
+  group: null
+  name: Защитить службу Агента администрирования от неавторизованного удаления, остановки или изменения параметров работы
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.параметры.x.использовать_пароль_деинсталяции
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Параметры
+  group: null
+  name: Использовать пароль деинсталяции
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.хранилища.x.информация_об_установленных_приложениях
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Хранилища
+  group: null
+  name: Информация об установленных приложениях
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.хранилища.x.включить_информацию_о_патчах
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Хранилища
+  group: null
+  name: Включить информацию о патчах
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.хранилища.x.информация_об_обновлениях_центра_обновления_windows
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Хранилища
+  group: null
+  name: Информация об обновлениях Центра обновления Windows
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.хранилища.x.информация_об_уязвимостях_в_приложениях_и_соответствующих_обновлениях
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Хранилища
+  group: null
+  name: Информация об уязвимостях в приложениях и соответствующих обновлениях
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.хранилища.x.информация_о_реестре_оборудования
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Хранилища
+  group: null
+  name: Информация о реестре оборудования
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.обновления_и_уязвимости_в_приложениях.x.режим_поиска_центра_обновления_windows
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Обновления и уязвимости в приложениях
+  group: null
+  name: Режим поиска Центра обновления Windows
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.обновления_и_уязвимости_в_приложениях.x.проверять_исполняемые_файлы_на_наличие_уязвимостей_при_запуске
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Обновления и уязвимости в приложениях
+  group: null
+  name: Проверять исполняемые файлы на наличие уязвимостей при запуске
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.управление_перезагрузкой.выберите_действие_которое_следует_предпринять_если_в_ходе_установки_работы_или_удаления_приложения_потребуется_перезагрузка_операционной_системы.повторять_запрос_периодически_через_мин
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Управление перезагрузкой
+  group: Выберите действие, которое следует предпринять, если в ходе установки, работы или удаления приложения потребуется
+    перезагрузка операционной системы.
+  name: Повторять запрос периодически через (мин)
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.управление_перезагрузкой.выберите_действие_которое_следует_предпринять_если_в_ходе_установки_работы_или_удаления_приложения_потребуется_перезагрузка_операционной_системы.принудительно_перезагружать_через_мин
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Управление перезагрузкой
+  group: Выберите действие, которое следует предпринять, если в ходе установки, работы или удаления приложения потребуется
+    перезагрузка операционной системы.
+  name: Принудительно перезагружать через (мин)
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.управление_перезагрузкой.выберите_действие_которое_следует_предпринять_если_в_ходе_установки_работы_или_удаления_приложения_потребуется_перезагрузка_операционной_системы.принудительно_закрывать_приложения_в_заблокированных_сеансах
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Управление перезагрузкой
+  group: Выберите действие, которое следует предпринять, если в ходе установки, работы или удаления приложения потребуется
+    перезагрузка операционной системы.
+  name: Принудительно закрывать приложения в заблокированных сеансах
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.совместный_доступ_к_рабочему_столу_windows.выберите_действие_которое_следует_предпринять_если_в_ходе_установки_работы_или_удаления_приложения_потребуется_перезагрузка_операционной_системы.включить_аудит
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Совместный доступ к рабочему столу Windows
+  group: Выберите действие, которое следует предпринять, если в ходе установки, работы или удаления приложения потребуется
+    перезагрузка операционной системы.
+  name: Включить аудит
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.управление_патчами_и_обновлениями.выберите_действие_которое_следует_предпринять_если_в_ходе_установки_работы_или_удаления_приложения_потребуется_перезагрузка_операционной_системы.автоматически_устанавливать_применимые_обновления_и_патчи_для_компонентов_со_статусом_не_определено
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Управление патчами и обновлениями
+  group: Выберите действие, которое следует предпринять, если в ходе установки, работы или удаления приложения потребуется
+    перезагрузка операционной системы.
+  name: Автоматически устанавливать применимые обновления и патчи для компонентов со статусом "Не определено"
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.управление_патчами_и_обновлениями.выберите_действие_которое_следует_предпринять_если_в_ходе_установки_работы_или_удаления_приложения_потребуется_перезагрузка_операционной_системы.скачивать_обновления_и_антивирусные_базы_с_сервера_администрирования_заранее_рекомендуется
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Управление патчами и обновлениями
+  group: Выберите действие, которое следует предпринять, если в ходе установки, работы или удаления приложения потребуется
+    перезагрузка операционной системы.
+  name: Скачивать обновления и антивирусные базы с Сервера администрирования заранее (рекомендуется)
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.подключения.сеть.период_синхронизациимин
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Подключения
+  group: Сеть
+  name: Период синхронизации(мин)
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.подключения.сеть.сжимать_сетевой_трафик
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Подключения
+  group: Сеть
+  name: Сжимать сетевой трафик
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.подключения.сеть.открывать_порты_агента_администрирования_в_брандмауэре_microsoft_windows
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Подключения
+  group: Сеть
+  name: Открывать порты Агента администрирования в брандмауэре Microsoft Windows
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.подключения.сеть.использовать_ssl_соединение
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Подключения
+  group: Сеть
+  name: Использовать SSL-соединение
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.подключения.сеть.использовать_шлюз_соединения_точки_распространенияпри_наличии_в_параметрах_подключения_по_умолчанию
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Подключения
+  group: Сеть
+  name: Использовать шлюз соединения точки распространения(при наличии) в параметрах подключения по умолчанию
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.подключения.сеть.использовать_udp_порт
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Подключения
+  group: Сеть
+  name: Использовать UDP-порт
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.подключения.сеть.использовать_точку_распространения_для_принудительного_подключения_к_серверу
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Подключения
+  group: Сеть
+  name: Использовать точку распространения для принудительного подключения к Серверу
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.подключения.расписание_соединений.интервал_подключения_агентов_администрирования_к_серверу_администрирования
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Подключения
+  group: Расписание соединений
+  name: Интервал подключения Агентов администрирования к Серверу администрирования
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.опрос_сети_точками_распространения.расписание_соединений.сеть_windows
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Опрос сети точками распространения
+  group: Расписание соединений
+  name: Сеть Windows
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.опрос_сети_точками_распространения.расписание_соединений.ip_диапазоны
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Опрос сети точками распространения
+  group: Расписание соединений
+  name: IP-диапазоны
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.опрос_сети_точками_распространения.расписание_соединений.zeroconf
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Опрос сети точками распространения
+  group: Расписание соединений
+  name: Zeroconf
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.опрос_сети_точками_распространения.расписание_соединений.контроллеры_доменов
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Опрос сети точками распространения
+  group: Расписание соединений
+  name: Контроллеры доменов
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.параметры_сети_для_точек_распространения.расписание_соединений.использовать_прокси_сервер
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Параметры сети для точек распространения
+  group: Расписание соединений
+  name: Использовать прокси-сервер
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.прокси_сервер_ksnточки_распространения.расписание_соединений.включить_прокси_сервер_ksn_на_стороне_точки_распространения
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Прокси-сервер KSN(точки распространения)
+  group: Расписание соединений
+  name: Включить прокси-сервер KSN на стороне точки распространения
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.прокси_сервер_ksnточки_распространения.открыть_порты.tcp_порт
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Прокси-сервер KSN(точки распространения)
+  group: Открыть порты
+  name: TCP-порт
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.прокси_сервер_ksnточки_распространения.открыть_порты.использовать_udp_порт
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Прокси-сервер KSN(точки распространения)
+  group: Открыть порты
+  name: Использовать UDP-порт
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.прокси_сервер_ksnточки_распространения.открыть_порты.использовать_https
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Прокси-сервер KSN(точки распространения)
+  group: Открыть порты
+  name: Использовать HTTPS
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.прокси_сервер_ksnточки_распространения.открыть_порты.https_порт
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Прокси-сервер KSN(точки распространения)
+  group: Открыть порты
+  name: HTTPS-порт
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.обновления_точки_распространения.открыть_порты.скачать_файлы_различий
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Обновления (точки распространения)
+  group: Открыть порты
+  name: Скачать файлы различий
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.управление_учетными_записямитолько_для_linux.открыть_порты.установить_корневые_сертификаты
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Управление учетными записями(Только для Linux)
+  group: Открыть порты
+  name: Установить корневые сертификаты
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: agent.параметры_приложения.управление_учетными_записямитолько_для_linux.открыть_порты.контролировать_файл_sudoers
+  application: network_agent
+  category: Параметры приложения
+  subcategory: Управление учетными записями(Только для Linux)
+  group: Открыть порты
+  name: Контролировать файл sudoers
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false

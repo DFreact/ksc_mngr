@@ -1,0 +1,1593 @@
+- id: kesl.общие.x.наследование_параметров.наследовать_параметр_родительской_политики
+  application: kesl
+  category: Общие
+  subcategory: null
+  group: Наследование параметров
+  name: Наследовать параметр родительской политики
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.общие.x.наследование_параметров.обеспечить_принудительное_наследование_параметров_для_дочерних_политик
+  application: kesl
+  category: Общие
+  subcategory: null
+  group: Наследование параметров
+  name: Обеспечить принудительное наследование параметров для дочерних политик
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_файловых_угроз.наследование_параметров.защита_от_файловых_угроз
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от файловых угроз
+  group: Наследование параметров
+  name: Защита от файловых угроз
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_файловых_угроз.исключения_из_проверки.объединять_значения_при_наследовании
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от файловых угроз
+  group: Исключения из проверки
+  name: Объединять значения при наследовании
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.действие_при_обнаружении_угрозы.исключения_из_проверки.лечить_удалять_если_лечение_невозможно
+  application: kesl
+  category: Параметры приложения
+  subcategory: Действие при обнаружении угрозы
+  group: Исключения из проверки
+  name: Лечить. Удалять, если лечение невозможно
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.действие_при_обнаружении_угрозы.исключения_из_проверки.лечить_блокировать_если_лечение_невозможно
+  application: kesl
+  category: Параметры приложения
+  subcategory: Действие при обнаружении угрозы
+  group: Исключения из проверки
+  name: Лечить. Блокировать, если лечение невозможно
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.действие_при_обнаружении_угрозы.исключения_из_проверки.блокировать
+  application: kesl
+  category: Параметры приложения
+  subcategory: Действие при обнаружении угрозы
+  group: Исключения из проверки
+  name: Блокировать
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.дополнительные_настройки.производительность.проверять_архивы
+  application: kesl
+  category: Параметры приложения
+  subcategory: Дополнительные настройки
+  group: Производительность
+  name: Проверять архивы
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.дополнительные_настройки.производительность.проверять_дистрибуктивы_и_самораспаковывающиеся_архивы
+  application: kesl
+  category: Параметры приложения
+  subcategory: Дополнительные настройки
+  group: Производительность
+  name: Проверять дистрибуктивы и самораспаковывающиеся архивы
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.дополнительные_настройки.производительность.проверять_файлы_почтовых_форматов1
+  application: kesl
+  category: Параметры приложения
+  subcategory: Дополнительные настройки
+  group: Производительность
+  name: Проверять файлы почтовых форматов(1)
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.дополнительные_настройки.производительность.проверять_файлы_почтовых_форматов2
+  application: kesl
+  category: Параметры приложения
+  subcategory: Дополнительные настройки
+  group: Производительность
+  name: Проверять файлы почтовых форматов(2)
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.дополнительные_настройки.производительность.не_проверять_архивы_размером_болеемб
+  application: kesl
+  category: Параметры приложения
+  subcategory: Дополнительные настройки
+  group: Производительность
+  name: 'Не проверять архивы размером более(МБ):'
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.дополнительные_настройки.производительность.пропускать_файл_если_его_проверка_длится_болеесек
+  application: kesl
+  category: Параметры приложения
+  subcategory: Дополнительные настройки
+  group: Производительность
+  name: Пропускать файл, если его проверка длится более(сек.)
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - '3600'
+  - '7200'
+  - Нет
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.режим_перехвата_файловых_операций.производительность.блокировать_доступ_к_файлам_во_времям_проверки
+  application: kesl
+  category: Параметры приложения
+  subcategory: Режим перехвата файловых операций
+  group: Производительность
+  name: Блокировать доступ к файлам во времям проверки
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_атак_badusb.производительность.защита_от_атак_badusb
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от атак BadUSB
+  group: Производительность
+  name: Защита от атак BadUSB
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_атак_badusb.авторизация_usb_устройств.максимальное_количество_попыток_авторизации_usb_устройства
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от атак BadUSB
+  group: Авторизация USB-устройств
+  name: Максимальное количество попыток авторизации USB-устройства
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - '5'
+  - Нет
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_атак_badusb.авторизация_usb_устройств.тайм_аут_при_достижении_максимального_количества_попытокмин
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от атак BadUSB
+  group: Авторизация USB-устройств
+  name: Тайм-аут при достижении максимального количества попыток(мин)
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - '5'
+  - Нет
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_атак_badusb.авторизация_usb_устройств.запрет_на_использование_экранной_клавиатуры_для_авторизации_usb_устройств
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от атак BadUSB
+  group: Авторизация USB-устройств
+  name: Запрет на использование экранной клавиатуры для авторизации USB-устройств
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.проверка_съемных_дисков.авторизация_usb_устройств.проверка_съемных_дисков
+  application: kesl
+  category: Параметры приложения
+  subcategory: Проверка съемных дисков
+  group: Авторизация USB-устройств
+  name: Проверка съемных дисков
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.тип_проверки.авторизация_usb_устройств.быстрая_проверка
+  application: kesl
+  category: Параметры приложения
+  subcategory: Тип проверки
+  group: Авторизация USB-устройств
+  name: Быстрая проверка
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.тип_проверки.авторизация_usb_устройств.подробная_проверка
+  application: kesl
+  category: Параметры приложения
+  subcategory: Тип проверки
+  group: Авторизация USB-устройств
+  name: Подробная проверка
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.проверка_съемных_дисков.авторизация_usb_устройств.блокировать_доступ_к_съемному_диску_во_время_проверки
+  application: kesl
+  category: Параметры приложения
+  subcategory: Проверка съемных дисков
+  group: Авторизация USB-устройств
+  name: Блокировать доступ к съемному диску во время проверки
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.анализ_поведения.авторизация_usb_устройств.анализ_поведения
+  application: kesl
+  category: Параметры приложения
+  subcategory: Анализ поведения
+  group: Авторизация USB-устройств
+  name: Анализ поведения
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.анализ_поведения.доверенные_приложения.объединять_значения_при_наследовании
+  application: kesl
+  category: Параметры приложения
+  subcategory: Анализ поведения
+  group: Доверенные приложения
+  name: Объединять значения при наследовании
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.анализ_поведения.действия_при_обнаружении_угрозы.информировать
+  application: kesl
+  category: Параметры приложения
+  subcategory: Анализ поведения
+  group: Действия при обнаружении угрозы
+  name: Информировать
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.анализ_поведения.действия_при_обнаружении_угрозы.блокировать
+  application: kesl
+  category: Параметры приложения
+  subcategory: Анализ поведения
+  group: Действия при обнаружении угрозы
+  name: Блокировать
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_шифрования.действия_при_обнаружении_угрозы.защита_от_шифрования
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от шифрования
+  group: Действия при обнаружении угрозы
+  name: Защита от шифрования
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_шифрования.действие_при_обнаружении_угрозы.информировать
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от шифрования
+  group: Действие при обнаружении угрозы
+  name: Информировать
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_шифрования.действие_при_обнаружении_угрозы.блокировать_соединение_на_мин
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от шифрования
+  group: Действие при обнаружении угрозы
+  name: 'Блокировать соединение на (мин):'
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_шифрования.область_защиты.все_общие_сетевые_папки_защищаемого_устройства
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от шифрования
+  group: Область защиты
+  name: Все общие сетевые папки защищаемого устройства
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_шифрования.область_защиты.только_указанные_общие_папки
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от шифрования
+  group: Область защиты
+  name: Только указанные общие папки
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_эксплойтов.область_защиты.защита_от_эксплойтов
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от эксплойтов
+  group: Область защиты
+  name: Защита от эксплойтов
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_эксплойтов.действие_при_обнаружении_угрозы.информировать_или_запросить_действие
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от эксплойтов
+  group: Действие при обнаружении угрозы
+  name: Информировать или запросить действие
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_эксплойтов.действие_при_обнаружении_угрозы.блокировать
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от эксплойтов
+  group: Действие при обнаружении угрозы
+  name: Блокировать
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_сетевых_соединений_и_средств_коммуникации.защита_от_почтовых_угроз.защита_от_почтовых_угроз
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита сетевых соединений и средств коммуникации
+  group: Защита от почтовых угроз
+  name: Защита от почтовых угроз
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_сетевых_соединений_и_средств_коммуникации.уровень_безопасности.максимальное_быстродействие
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита сетевых соединений и средств коммуникации
+  group: Уровень безопасности
+  name: Максимальное быстродействие
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_сетевых_соединений_и_средств_коммуникации.уровень_безопасности.рекомендуемый
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита сетевых соединений и средств коммуникации
+  group: Уровень безопасности
+  name: Рекомендуемый
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_сетевых_соединений_и_средств_коммуникации.уровень_безопасности.максимальная_защита
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита сетевых соединений и средств коммуникации
+  group: Уровень безопасности
+  name: Максимальная защита
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_сетевых_соединений_и_средств_коммуникации.действие_при_обнаружении_угрозы.лечить_удалять_если_лечение_невозможно
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита сетевых соединений и средств коммуникации
+  group: Действие при обнаружении угрозы
+  name: Лечить. Удалять, если лечение невозможно
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_сетевых_соединений_и_средств_коммуникации.действие_при_обнаружении_угрозы.лечить_блокировать_если_лечение_невозможно
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита сетевых соединений и средств коммуникации
+  group: Действие при обнаружении угрозы
+  name: Лечить. Блокировать, если лечение невозможно
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_сетевых_соединений_и_средств_коммуникации.действие_при_обнаружении_угрозы.блокировать
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита сетевых соединений и средств коммуникации
+  group: Действие при обнаружении угрозы
+  name: Блокировать
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.дополнительные_настройки.настройки_проверки.проверять_вложенные_архивы
+  application: kesl
+  category: Параметры приложения
+  subcategory: Дополнительные настройки
+  group: Настройки проверки
+  name: Проверять вложенные архивы
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.дополнительные_настройки.настройки_проверки.проверять_файлы_офисных_форматов
+  application: kesl
+  category: Параметры приложения
+  subcategory: Дополнительные настройки
+  group: Настройки проверки
+  name: Проверять файлы офисных форматов
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.дополнительные_настройки.настройки_проверки.не_проверять_архивы_размером_болеемб
+  application: kesl
+  category: Параметры приложения
+  subcategory: Дополнительные настройки
+  group: Настройки проверки
+  name: 'Не проверять архивы размером более(МБ):'
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.дополнительные_настройки.настройки_проверки.пропускать_файл_если_его_проверка_длится_болеесек
+  application: kesl
+  category: Параметры приложения
+  subcategory: Дополнительные настройки
+  group: Настройки проверки
+  name: 'Пропускать файл, если его проверка длится более(сек.):'
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - '3600'
+  - '7200'
+  - Нет
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.дополнительные_настройки.фильтр_вложений.не_изменять_вложения
+  application: kesl
+  category: Параметры приложения
+  subcategory: Дополнительные настройки
+  group: Фильтр вложений
+  name: Не изменять вложения
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.дополнительные_настройки.фильтр_вложений.переименовывать_вложения_указанных_типов
+  application: kesl
+  category: Параметры приложения
+  subcategory: Дополнительные настройки
+  group: Фильтр вложений
+  name: Переименовывать вложения указанных типов
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.дополнительные_настройки.фильтр_вложений.удалять_вложения_указанных_типов
+  application: kesl
+  category: Параметры приложения
+  subcategory: Дополнительные настройки
+  group: Фильтр вложений
+  name: Удалять вложения указанных типов
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_веб_угроз.фильтр_вложений.защита_от_веб_угроз
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от веб-угроз
+  group: Фильтр вложений
+  name: Защита от веб-угроз
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_веб_угроз.действие_при_обнаружении_угрозы.блокировать
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от веб-угроз
+  group: Действие при обнаружении угрозы
+  name: Блокировать
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_веб_угроз.действие_при_обнаружении_угрозы.информировать
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от веб-угроз
+  group: Действие при обнаружении угрозы
+  name: Информировать
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_сетевых_угроз.защита_от_сетевых_угроз.защита_от_сетевых_угроз
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от сетевых угроз
+  group: Защита от сетевых угроз
+  name: Защита от сетевых угроз
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_сетевых_угроз.действие_при_обнаружении_угрозы.блокировать
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от сетевых угроз
+  group: Действие при обнаружении угрозы
+  name: Блокировать
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.защита_от_сетевых_угроз.действие_при_обнаружении_угрозы.блокировать_атаку_и_атакующие_устройства_на_мин
+  application: kesl
+  category: Параметры приложения
+  subcategory: Защита от сетевых угроз
+  group: Действие при обнаружении угрозы
+  name: 'Блокировать атаку и атакующие устройства на (мин):'
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.сетевой_экран.действие_при_обнаружении_угрозы.сетевой_экран
+  application: kesl
+  category: Параметры приложения
+  subcategory: Сетевой экран
+  group: Действие при обнаружении угрозы
+  name: Сетевой экран
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.сетевые_пакетные_правила.дополнительные_настройки.всегда_добавлять_разрешающие_правила_для_портов_агента_администрирования
+  application: kesl
+  category: Параметры приложения
+  subcategory: Сетевые пакетные правила
+  group: Дополнительные настройки
+  name: Всегда добавлять разрешающие правила для портов Агента администрирования
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.контроль_безопасности.контроль_устройств.контроль_устройств
+  application: kesl
+  category: Параметры приложения
+  subcategory: Контроль безопасности
+  group: Контроль устройств
+  name: Контроль устройств
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.контроль_устройств.шаблоны_сообщений.сообщение_о_блокировке_устройства
+  application: kesl
+  category: Параметры приложения
+  subcategory: Контроль устройств
+  group: Шаблоны сообщений
+  name: Сообщение о блокировке устройства
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - 'Доступ к устройству или операции %OPERATION% с устройства %DEVICE_TYPE% заблокирован.
+
+
+    Если вы считаете, что блокировка ошибочна, обратитесь к системному администратору.'
+  - Нет
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.контроль_безопасности.правила_доступа_к_устройствам.разрешить_запрашивать_временный_доступ
+  application: kesl
+  category: Параметры приложения
+  subcategory: Контроль безопасности
+  group: Правила доступа к устройствам
+  name: Разрешить запрашивать временный доступ
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.правила_доступа_к_устройствам.режим_работы.информировать
+  application: kesl
+  category: Параметры приложения
+  subcategory: Правила доступа к устройствам
+  group: Режим работы
+  name: Информировать
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.правила_доступа_к_устройствам.режим_работы.блокировать
+  application: kesl
+  category: Параметры приложения
+  subcategory: Правила доступа к устройствам
+  group: Режим работы
+  name: Блокировать
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.контроль_безопасности.веб_контроль.веб_контроль
+  application: kesl
+  category: Параметры приложения
+  subcategory: Контроль безопасности
+  group: Веб-Контроль
+  name: Веб-Контроль
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.веб_контроль.список_правил.разрешать_все_не_указанное_в_списке_правил
+  application: kesl
+  category: Параметры приложения
+  subcategory: Веб-Контроль
+  group: Список правил
+  name: Разрешать все, не указанное в списке правил
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.веб_контроль.список_правил.блокировать_все_не_указанное_в_списке_правил
+  application: kesl
+  category: Параметры приложения
+  subcategory: Веб-Контроль
+  group: Список правил
+  name: Блокировать все, не указанное в списке правил
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.контроль_безопасности.контроль_приложений.контроль_прлиожений
+  application: kesl
+  category: Параметры приложения
+  subcategory: Контроль безопасности
+  group: Контроль приложений
+  name: Контроль прлиожений
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.действие_при_запуске_приложений.режим_работы.разрешать_все_не_указанное_в_списке_правил
+  application: kesl
+  category: Параметры приложения
+  subcategory: Действие при запуске приложений
+  group: Режим работы
+  name: Разрешать все, не указанное в списке правил
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.действие_при_запуске_приложений.режим_работы.блокировать_все_не_указанное_в_списке_правил
+  application: kesl
+  category: Параметры приложения
+  subcategory: Действие при запуске приложений
+  group: Режим работы
+  name: Блокировать все, не указанное в списке правил
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.действие_при_запуске_приложений.действие.применять_правила
+  application: kesl
+  category: Параметры приложения
+  subcategory: Действие при запуске приложений
+  group: Действие
+  name: Применять правила
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.действие_при_запуске_приложений.действие.информировать
+  application: kesl
+  category: Параметры приложения
+  subcategory: Действие при запуске приложений
+  group: Действие
+  name: Информировать
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.действие_при_запуске_приложений.действие.добавить_правила_из_политики_к_локальным_правилам
+  application: kesl
+  category: Параметры приложения
+  subcategory: Действие при запуске приложений
+  group: Действие
+  name: Добавить правила из политики к локальным правилам
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.контроль_безопасности.контроль_целосстности_системы.контроль_целостности_системы
+  application: kesl
+  category: Параметры приложения
+  subcategory: Контроль безопасности
+  group: Контроль целосстности системы
+  name: Контроль целостности системы
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.контроль_безопасности.контроль_целосстности_системы.добавить_исключения_по_маске
+  application: kesl
+  category: Параметры приложения
+  subcategory: Контроль безопасности
+  group: Контроль целосстности системы
+  name: Добавить исключения по маске
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.доверенная_зона.доверенные_приложения.объединять_значения_при_наследовании
+  application: kesl
+  category: Параметры приложения
+  subcategory: Доверенная зона
+  group: Доверенные приложения
+  name: Объединять значения при наследовании
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.доверенная_зона.исключения_из_поиска_вредоносного_по.объединять_значения_при_наследовании
+  application: kesl
+  category: Параметры приложения
+  subcategory: Доверенная зона
+  group: Исключения из Поиска вредоносного ПО
+  name: Объединять значения при наследовании
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.обнаружение_других_типов_объектов.легальные_приложения_которые_могут_быть_использованы_злоумышленниками_для_нанесения_вреда_компьютеру_или_данным_пользователя
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Обнаружение других типов объектов
+  name: Легальные приложения, которые могут быть использованы злоумышленниками для нанесения вреда компьютеру или данным пользователя
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.режим_перехвата_файловых_операций.блокировать_доступ_к_файлам_во_время_проверки
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Режим перехвата файловых операций
+  name: Блокировать доступ к файлам во время проверки
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.настройки_записи_событий_в_журнал.сообщать_о_незараженных_объектах
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Настройки записи событий в журнал
+  name: Сообщать о незараженных объектах
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.настройки_записи_событий_в_журнал.сообщать_о_необработанных_объектах
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Настройки записи событий в журнал
+  name: Сообщать о необработанных объектах
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.настройки_записи_событий_в_журнал.сообщать_об_упакованных_объектах
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Настройки записи событий в журнал
+  name: Сообщать об упакованных объектах
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.kaspersky_security_network.kaspersky_security_network
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Kaspersky Security Network
+  name: Kaspersky Security Network
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.kaspersky_security_network.использовать_расширенный_режим_ksn
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Kaspersky Security Network
+  name: Использовать расширенный режим KSN
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.kaspersky_security_network.использовать_облачный_режим
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Kaspersky Security Network
+  name: Использовать облачный режим
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.прокси_сервер_ksn.использовать_сервер_администрирования_как_прокси_сервер_ksn
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Прокси-сервер KSN
+  name: Использовать сервер администрирования как прокси-сервер KSN
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.прокси_сервер_ksn.использовать_серверы_kaspersky_security_network_если_прокси_сервер_ksn_недоступен
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Прокси-сервер KSN
+  name: Использовать серверы Kaspersky Security Network, если прокси-сервер KSN недоступен
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.взаимодействие_с_пользователем.доступ_к_локальным_задачам
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Взаимодействие с пользователем
+  name: Доступ к локальным задачам
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.взаимодействие_с_пользователем.управление_групповыми_задачами
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Взаимодействие с пользователем
+  name: Управление групповыми задачами
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.взаимодействие_с_пользователем.максимальное_количество_неудачных_последовательных_попыток_запуска_приложения
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Взаимодействие с пользователем
+  name: Максимальное количество неудачных последовательных попыток запуска приложения
+  value_type: number
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.взаимодействие_с_пользователем.максимальное_время_ожидания_запуска_приложения_мин
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Взаимодействие с пользователем
+  name: Максимальное время ожидания запуска приложения (мин.)
+  value_type: number
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.производительность.откладывать_или_пропускать_задачи_по_расписанию_при_работе_от_аккумулятора
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Производительность
+  name: Откладывать или пропускать задачи по расписанию при работе от аккумулятора
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.производительность.ограничить_потребление_ресурсов_процессора_для_задач_проверки
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Производительность
+  name: Ограничить потребление ресурсов процессора для задач проверки
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.производительность.максимальное_значение
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Производительность
+  name: 'Максимальное значение (%):'
+  value_type: number
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.производительность.ограничение_на_использование_памяти_для_задач_проверки_мб
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Производительность
+  name: 'Ограничение на использование памяти для задач проверки (МБ):'
+  value_type: number
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.производительность.включить_мониторинг_стабильности_работы_приложения
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Производительность
+  name: Включить мониторинг стабильности работы приложения
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.настройки_сети.использовать_прокси_сервер
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Настройки сети
+  name: Использовать прокси-сервер
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.исключения_для_прокси_сервера.endpoint_detection_and_response_experton_premise
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Исключения для прокси-сервера
+  name: Endpoint Detection and Response Expert(on-premise)
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.исключения_для_прокси_сервера.kata_sandbox
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Исключения для прокси-сервера
+  name: Kata Sandbox
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.исключения_для_прокси_сервера.network_detection_and_responsekata
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Исключения для прокси-сервера
+  name: Network Detection and Response(KATA)
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.настройки_сети.проверка_защищенных_соединений
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Настройки сети
+  name: Проверка защищенных соединений
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_сети.контролируемые_порты.контролировать_все_сетевые_порты
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки сети
+  group: Контролируемые порты
+  name: Контролировать все сетевые порты
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_сети.контролируемые_порты.контролировать_только_выбранные_сетевые_порты
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки сети
+  group: Контролируемые порты
+  name: Контролировать только выбранные сетевые порты
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_сети.режим_перехвата_трафика.iptables
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки сети
+  group: Режим перехвата трафика
+  name: iptables
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_сети.режим_перехвата_трафика.ebpf
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки сети
+  group: Режим перехвата трафика
+  name: eBPF
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.настройки_проверки_контейнеров.проверка_пространства_имен_и_контейнеров
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Настройки проверки контейнеров
+  name: Проверка пространства имен и контейнеров
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_проверки_контейнеров.действие_при_обнаружении_угрозы.пропустить_контейнер
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки проверки контейнеров
+  group: Действие при обнаружении угрозы
+  name: Пропустить контейнер
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_проверки_контейнеров.действие_при_обнаружении_угрозы.остановить_контейнер
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки проверки контейнеров
+  group: Действие при обнаружении угрозы
+  name: Остановить контейнер
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_проверки_контейнеров.действие_при_обнаружении_угрозы.остановить_контейнер_если_не_удалось_вылечить
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки проверки контейнеров
+  group: Действие при обнаружении угрозы
+  name: Остановить контейнер, если не удалось вылечить
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_проверки_контейнеров.использовать_docker.использовать_docker
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки проверки контейнеров
+  group: Использовать Docker
+  name: Использовать Docker
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_проверки_контейнеров.использовать_docker.путь_docker_сокета
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки проверки контейнеров
+  group: Использовать Docker
+  name: Путь Docker-сокета
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - /var/run/docker.sock
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_проверки_контейнеров.использовать_cri_o.использовать_cri_o
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки проверки контейнеров
+  group: Использовать CRI-O
+  name: Использовать CRI-O
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_проверки_контейнеров.использовать_cri_o.путь_к_файлу_cri_o
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки проверки контейнеров
+  group: Использовать CRI-O
+  name: Путь к файлу CRI-O
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - /etc/crio/crio.conf
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_проверки_контейнеров.использовать_podman.использовать_podman
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки проверки контейнеров
+  group: Использовать Podman
+  name: Использовать Podman
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_проверки_контейнеров.использовать_podman.путь_к_файлу_podman
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки проверки контейнеров
+  group: Использовать Podman
+  name: Путь к файлу Podman
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - /usr/bin/podman
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_проверки_контейнеров.использовать_podman.корневая_директория_контейнеровдля_podman
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки проверки контейнеров
+  group: Использовать Podman
+  name: Корневая директория контейнеров(для Podman)
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - /var/lib/containers/storage
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_проверки_контейнеров.использовать_runc.использовать_runc
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки проверки контейнеров
+  group: Использовать runc
+  name: Использовать runc
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_проверки_контейнеров.использовать_runc.путь_к_файлу_runc
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки проверки контейнеров
+  group: Использовать runc
+  name: Путь к файлу runc
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - /usr/bin/runc
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_проверки_контейнеров.использовать_runc.корневая_директория_для_runc
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки проверки контейнеров
+  group: Использовать runc
+  name: Корневая директория для runc
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - /run/runc
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.служба_технической_поддержки.запись_дампов
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Служба технической поддержки
+  name: Запись дампов
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.служба_технической_поддержки.отладочная_информация.путь_к_файлу_дампа
+  application: kesl
+  category: Параметры приложения
+  subcategory: Служба технической поддержки
+  group: Отладочная информация
+  name: Путь к файлу дампа
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - /var/opt/kaspersky/kesl/common/dumps
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.служба_технической_поддержки.отладочная_информация.путь_к_папке_трассировки
+  application: kesl
+  category: Параметры приложения
+  subcategory: Служба технической поддержки
+  group: Отладочная информация
+  name: Путь к папке трассировки
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - /var/log/kaspersky/kesl/
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.служба_технической_поддержки.отладочная_информация.максимальные_размер_файла_трассировкимб
+  application: kesl
+  category: Параметры приложения
+  subcategory: Служба технической поддержки
+  group: Отладочная информация
+  name: Максимальные размер файла трассировки(МБ)
+  value_type: number
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.служба_технической_поддержки.настройки_файлов_трассировки.максимальное_количество_файлов_трассировки
+  application: kesl
+  category: Параметры приложения
+  subcategory: Служба технической поддержки
+  group: Настройки файлов трассировки
+  name: Максимальное количество файлов трассировки
+  value_type: number
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.отчеты_и_хранилище.резервное_хранилище.удалять_объекты_черездни
+  application: kesl
+  category: Параметры приложения
+  subcategory: Отчеты и хранилище
+  group: Резервное хранилище
+  name: Удалять объекты через(дни)
+  value_type: number
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.отчеты_и_хранилище.резервное_хранилище.ограничить_размер_резервного_хранилища_до_мб
+  application: kesl
+  category: Параметры приложения
+  subcategory: Отчеты и хранилище
+  group: Резервное хранилище
+  name: Ограничить размер резервного хранилища до (МБ)
+  value_type: number
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.отчеты_и_хранилище.карантин.ограничить_размер_карантина
+  application: kesl
+  category: Параметры приложения
+  subcategory: Отчеты и хранилище
+  group: Карантин
+  name: Ограничить размер карантина
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.отчеты_и_хранилище.карантин.максимальный_размер_карантина_мб
+  application: kesl
+  category: Параметры приложения
+  subcategory: Отчеты и хранилище
+  group: Карантин
+  name: Максимальный размер карантина (МБ)
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - '200'
+  - Нет
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.отчеты_и_хранилище.карантин.уведомлять_при_заполнении_карантин_на
+  application: kesl
+  category: Параметры приложения
+  subcategory: Отчеты и хранилище
+  group: Карантин
+  name: Уведомлять при заполнении карантин на (%)
+  value_type: enum
+  added_in_version: '12.4'
+  enum_options:
+  - '90'
+  - Нет
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.интеграция_с_ksc.использовать_kaspersky_security_center_в_качестве_прокси_сервера_для_активации
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Интеграция с KSC
+  name: Использовать Kaspersky Security Center в качестве прокси-сервера для активации
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.общие_настройки.интеграция_с_ksc.передача_данных_на_сервер_администрирования
+  application: kesl
+  category: Параметры приложения
+  subcategory: Общие настройки
+  group: Интеграция с KSC
+  name: Передача данных на Сервер администрирования
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.интеграция_с_ksc.передача_данных_на_сервер_администрирования.о_файлах_карантина
+  application: kesl
+  category: Параметры приложения
+  subcategory: Интеграция с KSC
+  group: Передача данных на Сервер администрирования
+  name: О файлах карантина
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.интеграция_с_ksc.передача_данных_на_сервер_администрирования.о_файлах_в_резервном_хранилище
+  application: kesl
+  category: Параметры приложения
+  subcategory: Интеграция с KSC
+  group: Передача данных на Сервер администрирования
+  name: О файлах в резервном хранилище
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.интеграция_с_ksc.передача_данных_на_сервер_администрирования.о_необработанных_файлах
+  application: kesl
+  category: Параметры приложения
+  subcategory: Интеграция с KSC
+  group: Передача данных на Сервер администрирования
+  name: О необработанных файлах
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.интеграция_с_ksc.передача_данных_на_сервер_администрирования.об_установленных_устройствах
+  application: kesl
+  category: Параметры приложения
+  subcategory: Интеграция с KSC
+  group: Передача данных на Сервер администрирования
+  name: Об установленных устройствах
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.интеграция_с_ksc.передача_данных_на_сервер_администрирования.о_запускаемых_приложениях
+  application: kesl
+  category: Параметры приложения
+  subcategory: Интеграция с KSC
+  group: Передача данных на Сервер администрирования
+  name: О запускаемых приложениях
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_взаимодействия_с_ос.механизм_перехвата_событий.технология_fanotify
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки взаимодействия с ОС
+  group: Механизм перехвата событий
+  name: Технология fanotify
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_взаимодействия_с_ос.механизм_перехвата.обновляемый_модуль_ядра
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки взаимодействия с ОС
+  group: Механизм перехвата
+  name: Обновляемый модуль ядра
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_взаимодействия_с_ос.если_обновляемый_модуль_ядра_не_запускается.использовать_технологию_fanotify
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки взаимодействия с ОС
+  group: Если обновляемый модуль ядра не запускается
+  name: Использовать технологию fanotify
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_взаимодействия_с_ос.если_обновляемый_модуль_ядра_не_запускается.выключать_перехват_с_системных_событийснижение_уровня_защиты
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки взаимодействия с ОС
+  group: Если обновляемый модуль ядра не запускается
+  name: Выключать перехват с системных событий(снижение уровня защиты)
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_взаимодействия_с_ос.источник_телеметрии.использовать_только_ebpf
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки взаимодействия с ОС
+  group: Источник телеметрии
+  name: Использовать только eBPF
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_взаимодействия_с_ос.источник_телеметрии.по_умолчанию
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки взаимодействия с ОС
+  group: Источник телеметрии
+  name: По умолчанию
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_взаимодействия_с_ос.режим_работы_auditd.монопольный
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки взаимодействия с ОС
+  group: Режим работы auditd
+  name: Монопольный
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false
+- id: kesl.параметры_приложения.настройки_взаимодействия_с_ос.режим_работы_auditd.режим_многоадресной_рассылки
+  application: kesl
+  category: Параметры приложения
+  subcategory: Настройки взаимодействия с ОС
+  group: Режим работы auditd
+  name: Режим многоадресной рассылки
+  value_type: bool
+  added_in_version: '12.4'
+  tradeoffs_pros: []
+  tradeoffs_cons: []
+  tradeoffs_reviewed: false

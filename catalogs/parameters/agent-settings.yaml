@@ -1,0 +1,219 @@
+# Administration Agent 15.0 — Policy settings
+# ─── Connection ───────────────────────────────────────────────────────────────
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Connection"
+  name: "Connection server address"
+  value_type: string
+  description: "Hostname or IP address of the KSC Administration Server the agent connects to."
+  purpose: "The primary server the agent uses for policy synchronisation, event reporting, and remote task execution."
+  added_in_version: "15.0"
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Connection"
+  name: "Connection port"
+  value_type: number
+  unit: "port"
+  default_value: 14000
+  description: "TCP port for the agent → server non-SSL connection."
+  added_in_version: "15.0"
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Connection"
+  name: "SSL port"
+  value_type: number
+  unit: "port"
+  default_value: 13000
+  description: "TCP port for the encrypted (SSL/TLS) agent → server connection."
+  added_in_version: "15.0"
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Connection"
+  name: "Use SSL connection"
+  value_type: bool
+  default_value: true
+  description: "Encrypt all agent → server communications with TLS."
+  purpose: "Prevents interception of policy data, event reports, and task results on the network."
+  added_in_version: "15.0"
+  tradeoffs_pros:
+    - "Protects policy content and detection events from network-level eavesdropping."
+    - "Required for compliance in most regulated environments."
+  tradeoffs_cons:
+    - "Very slight CPU overhead for TLS handshake; negligible in practice."
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Connection"
+  name: "Synchronisation interval (minutes)"
+  value_type: number
+  unit: "minutes"
+  default_value: 15
+  description: "How often the agent synchronises with the Administration Server (pulls policies, pushes events)."
+  purpose: "Shorter intervals mean faster policy rollout and more timely events; longer intervals reduce server load."
+  added_in_version: "15.0"
+  tradeoffs_pros:
+    - "Shorter intervals (5 min) ensure policy changes reach endpoints quickly and events are reported promptly."
+  tradeoffs_cons:
+    - "Very short intervals increase load on the Administration Server at scale (thousands of agents). Use 15 min as the standard; reduce only for critical policy rollouts."
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Connection"
+  name: "Use UDP for push notifications"
+  value_type: bool
+  default_value: true
+  description: "Allow the Administration Server to send real-time push notifications to the agent via UDP (port 15000 by default), triggering immediate synchronisation."
+  purpose: "Push notifications allow the server to wake up the agent immediately for urgent operations (urgent task, emergency policy rollout) without waiting for the next polling cycle."
+  added_in_version: "15.0"
+  tradeoffs_pros:
+    - "Enables near-instant policy delivery for urgent scenarios — critical for incident response."
+  tradeoffs_cons:
+    - "Requires UDP port 15000 to be open from the Administration Server to all managed hosts. In strict firewall environments this may not be feasible."
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Connection"
+  name: "UDP push notification port"
+  value_type: number
+  unit: "port"
+  default_value: 15000
+  description: "UDP port on which the agent listens for push notifications from the Administration Server."
+  added_in_version: "15.0"
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Connection"
+  name: "Use connection gateway"
+  value_type: bool
+  default_value: false
+  description: "Route agent → server traffic through a connection gateway (distribution point acting as a network proxy)."
+  purpose: "Required for endpoints in network segments that have no direct route to the Administration Server. Typical in DMZ or segmented manufacturing networks."
+  added_in_version: "15.0"
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Connection"
+  name: "Connection gateway address"
+  value_type: string
+  description: "Hostname or IP address of the connection gateway (distribution point). Required when 'Use connection gateway' is enabled."
+  added_in_version: "15.0"
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Connection"
+  name: "Maximum connection retries"
+  value_type: number
+  unit: "retries"
+  default_value: 5
+  description: "Number of reconnection attempts before the agent reports a connection failure event."
+  added_in_version: "15.0"
+
+# ─── Updates ──────────────────────────────────────────────────────────────────
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Updates"
+  name: "Download updates from Administration Server"
+  value_type: bool
+  default_value: true
+  description: "Receive antivirus database and application module updates from the Administration Server's repository."
+  purpose: "In isolated networks, endpoints must receive updates from the server, not from the internet. Keep this enabled."
+  added_in_version: "15.0"
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Updates"
+  name: "Update interval (minutes)"
+  value_type: number
+  unit: "minutes"
+  default_value: 60
+  description: "How often the agent checks for and downloads new database updates from the Administration Server."
+  added_in_version: "15.0"
+  tradeoffs_pros:
+    - "More frequent updates (30 min) reduce the window of vulnerability between database releases."
+  tradeoffs_cons:
+    - "Very frequent updates with many agents simultaneously checking create load spikes. Use 'Randomise update start' to spread the load."
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Updates"
+  name: "Download application modules updates"
+  value_type: bool
+  default_value: true
+  description: "Allow automatic download of KESL and agent application module updates (component patches), not just database updates."
+  purpose: "Module updates deliver security patches and bug fixes for KESL components between major version releases."
+  added_in_version: "15.0"
+  tradeoffs_pros:
+    - "Keeps endpoint protection components patched against known vulnerabilities."
+  tradeoffs_cons:
+    - "Module updates require service restart in some cases. Schedule during maintenance windows if uptime is critical."
+
+# ─── Remote Management ────────────────────────────────────────────────────────
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Remote Management"
+  name: "Allow remote diagnostics"
+  value_type: bool
+  default_value: false
+  description: "Permit KSC to initiate remote diagnostic sessions on this endpoint."
+  purpose: "Enables Kaspersky Support and internal admins to run diagnostics remotely without local access."
+  added_in_version: "15.0"
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Remote Management"
+  name: "Allow remote installation from Administration Server"
+  value_type: bool
+  default_value: true
+  description: "Permit the Administration Server to push software installation packages to this device."
+  purpose: "Required for automated deployment of KESL updates and other managed applications."
+  added_in_version: "15.0"
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Remote Management"
+  name: "Send real-time events immediately"
+  value_type: bool
+  default_value: true
+  description: "Transmit critical and functional failure events to the Administration Server immediately rather than at the next sync cycle."
+  purpose: "Ensures high-severity events (malware detected, protection disabled) appear in KSC within seconds, enabling rapid incident response."
+  added_in_version: "15.0"
+  tradeoffs_pros:
+    - "Critical for SOC workflows — a malware detection event that takes 15 minutes to arrive delays the response."
+  tradeoffs_cons:
+    - "Slightly increases server load during high-event periods. Acceptable trade-off for security-critical events."
+
+# ─── Inventory ────────────────────────────────────────────────────────────────
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Inventory"
+  name: "Collect hardware inventory"
+  value_type: bool
+  default_value: true
+  description: "Collect and report hardware inventory data (CPU, RAM, disk, network adapters) to the Administration Server."
+  added_in_version: "15.0"
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Inventory"
+  name: "Collect software inventory"
+  value_type: bool
+  default_value: true
+  description: "Collect and report installed software inventory to the Administration Server."
+  purpose: "Software inventory enables vulnerability assessment, licence tracking, and compliance reporting."
+  added_in_version: "15.0"
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  category: "Inventory"
+  name: "Inventory collection interval (hours)"
+  value_type: number
+  unit: "hours"
+  default_value: 24
+  description: "How often the agent collects and reports hardware and software inventory to the Administration Server."
+  added_in_version: "15.0"

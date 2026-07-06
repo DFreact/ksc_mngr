@@ -1,0 +1,567 @@
+# Честная карта контролей KESL 12.4 → векторы атак.
+#
+# Дисциплина оценки (без натяжек):
+#   prevents   — контроль РЕАЛЬНО блокирует технику при рекомендованной настройке;
+#   detects    — контроль генерирует событие, но НЕ останавливает технику;
+#   partial    — покрыты лишь некоторые варианты/условия (только известное ВПО,
+#                только файл на диске, только известные сигнатуры и т.п.);
+#   compensating — косвенно повышает шансы обнаружения, но не таргетированный контроль.
+#
+# Техники без единой строки здесь — осознанные ПРОБЕЛЫ: KESL как EPP их не
+# закрывает (разведка, доступ к учётным данным, sudo/setuid, сбор данных,
+# кастомный C2, уничтожение бэкапов, DoS). Их видно в матрице как «нет контроля».
+# Все параметры относятся к приложению KESL 12.4, category = «Параметры приложения».
+
+# ═══ Защита от файловых угроз ════════════════════════════════════════════════
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита от файловых угроз"
+  group: "Наследование параметров"
+  parameter_name: "Защита от файловых угроз"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Фишинговое вложение в почте
+    - Запуск вредоносного исполняемого файла пользователем
+    - Заражение через съёмный носитель
+    - Заражение общих сетевых ресурсов
+  notes: >
+    Проверка при обращении блокирует известный вредоносный файл в момент
+    доступа — независимо от способа доставки.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита от файловых угроз"
+  group: "Наследование параметров"
+  parameter_name: "Защита от файловых угроз"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Вредоносный shell-скрипт (bash/sh)
+    - Вредоносный скрипт на Python/Perl
+    - Компрометация цепочки поставок ПО
+    - Подмена или добавление системного бинарника
+    - Упакованное или обфусцированное ВПО
+    - Маскировка под легитимный процесс или файл
+    - Загрузка инструментов на хост (ingress tool transfer)
+    - Шифрование локальных файлов шифровальщиком
+    - Скрытый майнинг криптовалюты
+  notes: >
+    Частично: ловит только то, что записано на диск и опознано (сигнатура/эвристика/
+    KSN). Интерактивные команды, код в памяти и целевые закладки проходят.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Действие при обнаружении угрозы"
+  group: "Исключения из проверки"
+  parameter_name: "Лечить. Удалять, если лечение невозможно"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Запуск вредоносного исполняемого файла пользователем
+    - Фишинговое вложение в почте
+  notes: >
+    Автоматическая нейтрализация обнаруженного объекта — детект превращается
+    в блокировку.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Дополнительные настройки"
+  group: "Производительность"
+  parameter_name: "Проверять архивы"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Упакованное или обфусцированное ВПО
+  notes: Закрывает упаковку в архив как способ спрятать вредонос от проверки.
+
+# ═══ Почтовая защита ═════════════════════════════════════════════════════════
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита сетевых соединений и средств коммуникации"
+  group: "Защита от почтовых угроз"
+  parameter_name: "Защита от почтовых угроз"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Фишинговое вложение в почте
+  notes: Вложение перехватывается на уровне протокола до записи на диск.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита сетевых соединений и средств коммуникации"
+  group: "Защита от почтовых угроз"
+  parameter_name: "Защита от почтовых угроз"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Фишинговая ссылка в письме
+  notes: Проверка ссылок в письме частично; клик по ссылке добивает веб-защита.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Дополнительные настройки"
+  group: "Фильтр вложений"
+  parameter_name: "Удалять вложения указанных типов"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Фишинговое вложение в почте
+  notes: Опасные типы вложений не доходят до пользователя вообще.
+
+# ═══ Веб-защита ══════════════════════════════════════════════════════════════
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита от веб-угроз"
+  group: "Фильтр вложений"
+  parameter_name: "Защита от веб-угроз"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Фишинговая ссылка в письме
+    - Drive-by компрометация через браузер
+  notes: >
+    Блокирует загрузку вредоносного содержимого и переход на фишинговый URL.
+    Заметьте: эксплуатацию браузера в памяти (без загрузки файла) не покрывает.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита от веб-угроз"
+  group: "Фильтр вложений"
+  parameter_name: "Защита от веб-угроз"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Загрузка инструментов на хост (ingress tool transfer)
+    - Управление по прикладному протоколу (HTTP/HTTPS)
+  notes: Блокирует только известные вредоносные/C2-адреса из базы.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита от веб-угроз"
+  group: "Действие при обнаружении угрозы"
+  parameter_name: "Блокировать"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Drive-by компрометация через браузер
+    - Фишинговая ссылка в письме
+  notes: Режим «Информировать» атаку не прерывает — покрытие даёт «Блокировать».
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Общие настройки"
+  group: "Настройки сети"
+  parameter_name: "Проверка защищенных соединений"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Drive-by компрометация через браузер
+    - Управление по прикладному протоколу (HTTP/HTTPS)
+  notes: >
+    Без инспекции TLS веб-защита слепа к HTTPS — а это почти весь современный
+    вредоносный и C2-трафик.
+
+# ═══ Сетевая защита и экран ══════════════════════════════════════════════════
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита от сетевых угроз"
+  group: "Защита от сетевых угроз"
+  parameter_name: "Защита от сетевых угроз"
+  required_state: { value: true }
+  coverage_strength: detects
+  threat_vector_names:
+    - Эксплуатация публично доступной службы
+  notes: IDS видит известные сигнатуры сетевых атак; неизвестный эксплойт проходит.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита от сетевых угроз"
+  group: "Действие при обнаружении угрозы"
+  parameter_name: "Блокировать атаку и атакующие устройства на (мин):"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Эксплуатация публично доступной службы
+  notes: Блокирует источник атаки, но лишь по известным сигнатурам и постфактум.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Сетевой экран"
+  group: "Действие при обнаружении угрозы"
+  parameter_name: "Сетевой экран"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Эксплуатация публично доступной службы
+    - Перемещение через SSH и удалённые службы
+    - Шифрованный или нестандартный канал C2
+    - Утечка по альтернативному сетевому каналу
+  notes: >
+    Реальное покрытие определяется настроенными правилами. Сам факт включения —
+    лишь потенциал (default-deny egress закрывает C2/утечку заметно сильнее).
+
+# ═══ Защита от шифрования (анти-криптор) ═════════════════════════════════════
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита от шифрования"
+  group: "Действия при обнаружении угрозы"
+  parameter_name: "Защита от шифрования"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Распространение шифровальщика по SMB/NFS
+    - Шифрование файлов на сетевых ресурсах
+  notes: Обнаруживает паттерн массового шифрования в общих папках и режет источник.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита от шифрования"
+  group: "Действие при обнаружении угрозы"
+  parameter_name: "Блокировать соединение на (мин):"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Распространение шифровальщика по SMB/NFS
+    - Шифрование файлов на сетевых ресурсах
+  notes: Немедленная блокировка атакующего хоста ограничивает потери.
+
+# ═══ Анализ поведения ════════════════════════════════════════════════════════
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Анализ поведения"
+  group: "Авторизация USB-устройств"
+  parameter_name: "Анализ поведения"
+  required_state: { value: true }
+  coverage_strength: detects
+  threat_vector_names:
+    - Бесфайловое выполнение в памяти
+    - Вредоносный shell-скрипт (bash/sh)
+    - Вредоносный скрипт на Python/Perl
+    - Вредоносный модуль ядра / руткит
+    - Внедрение в процесс (process injection)
+    - Отключение или вмешательство в средства защиты
+    - Шифрование локальных файлов шифровальщиком
+    - Уничтожение данных (wiper)
+    - Скрытый майнинг криптовалюты
+  notes: >
+    Поведенческие сигнатуры видят вредоносную активность без файловых сигнатур.
+    Блокировка зависит от настройки действия (см. отдельную строку).
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Анализ поведения"
+  group: "Авторизация USB-устройств"
+  parameter_name: "Анализ поведения"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Злоупотребление легитимными системными утилитами (LOLBins)
+    - Эксплуатация уязвимости ядра для повышения привилегий
+    - Дамп учётных данных ОС (/etc/shadow, память)
+    - Перехват ввода (кейлоггер)
+  notes: Частично распознаёт по цепочке действий; надёжного детекта нет.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Анализ поведения"
+  group: "Действия при обнаружении угрозы"
+  parameter_name: "Блокировать"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Шифрование локальных файлов шифровальщиком
+  notes: Завершение процесса с опасным поведением превращает детект в блокировку.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Анализ поведения"
+  group: "Действия при обнаружении угрозы"
+  parameter_name: "Блокировать"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Уничтожение данных (wiper)
+  notes: Может прервать деструктивный процесс, если поведение распознано вовремя.
+
+# ═══ Защита от эксплойтов (сверить с консолью — см. каталог) ══════════════════
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита от эксплойтов"
+  group: "Область защиты"
+  parameter_name: "Защита от эксплойтов"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Эксплуатация уязвимости ядра для повышения привилегий
+    - Эксплуатация публично доступной службы
+  notes: >
+    Компонент не подтверждён официальным списком KESL 12.4 (есть в KES Windows).
+    Учитывается частично; при отсутствии в вашей консоли — считать пробелом.
+
+# ═══ Контроль устройств, BadUSB, съёмные диски ═══════════════════════════════
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Контроль безопасности"
+  group: "Контроль устройств"
+  parameter_name: "Контроль устройств"
+  required_state: { value: true }
+  coverage_strength: detects
+  threat_vector_names:
+    - Заражение через съёмный носитель
+    - Кража данных на съёмный носитель
+  notes: Включённый контроль фиксирует подключения; блокировку даёт режим правил.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Контроль безопасности"
+  group: "Контроль устройств"
+  parameter_name: "Контроль устройств"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Перехват данных с камеры и микрофона
+  notes: Может ограничить доступ к камерам, сканерам и звуковым устройствам.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Правила доступа к устройствам"
+  group: "Режим работы"
+  parameter_name: "Блокировать"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Кража данных на съёмный носитель
+    - Заражение через съёмный носитель
+  notes: Принудительный режим правил блокирует неразрешённые носители.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита от атак BadUSB"
+  group: "Производительность"
+  parameter_name: "Защита от атак BadUSB"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Аппаратное внедрение (BadUSB / HID-инъекция)
+  notes: Неавторизованная USB-«клавиатура» не может вводить команды.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Защита от атак BadUSB"
+  group: "Производительность"
+  parameter_name: "Защита от атак BadUSB"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Заражение через съёмный носитель
+    - Перехват ввода (кейлоггер)
+  notes: Закрывает только HID-составляющую (устройство, притворяющееся клавиатурой).
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Проверка съемных дисков"
+  group: "Авторизация USB-устройств"
+  parameter_name: "Проверка съемных дисков"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Заражение через съёмный носитель
+  notes: Носитель проверяется при подключении, до обращения к файлам.
+
+# ═══ Контроль приложений ═════════════════════════════════════════════════════
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Контроль безопасности"
+  group: "Контроль приложений"
+  parameter_name: "Контроль прлиожений"
+  required_state: { value: true }
+  coverage_strength: detects
+  threat_vector_names:
+    - Запуск вредоносного исполняемого файла пользователем
+    - Вредоносный shell-скрипт (bash/sh)
+  notes: Включённый контроль фиксирует запуски; предотвращение даёт allowlist.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Действие при запуске приложений"
+  group: "Режим работы"
+  parameter_name: "Блокировать все, не указанное в списке правил"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Запуск вредоносного исполняемого файла пользователем
+  notes: Allowlist не даёт запуститься неизвестному бинарнику — сильнейший контроль исполнения.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Действие при запуске приложений"
+  group: "Режим работы"
+  parameter_name: "Блокировать все, не указанное в списке правил"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Вредоносный shell-скрипт (bash/sh)
+    - Вредоносный скрипт на Python/Perl
+    - Злоупотребление легитимными системными утилитами (LOLBins)
+  notes: >
+    Частично: allowlist контролирует бинарники, но разрешённый интерпретатор
+    (bash, python) может исполнить произвольный скрипт.
+
+# ═══ Контроль целостности системы ════════════════════════════════════════════
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Контроль безопасности"
+  group: "Контроль целосстности системы"
+  parameter_name: "Контроль целостности системы"
+  required_state: { value: true }
+  coverage_strength: detects
+  threat_vector_names:
+    - Закрепление через cron или systemd-таймер
+    - Автозапуск через systemd-юнит или init-скрипт
+    - Подмена или добавление системного бинарника
+    - Вредоносный модуль ядра / руткит
+    - Подмена модулей аутентификации (PAM/NSS)
+    - Удаление индикаторов и очистка журналов
+  notes: >
+    Фиксирует изменение мониторируемых файлов относительно эталона. Только детект —
+    изменение не блокируется; покрытие зависит от области мониторинга.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Контроль безопасности"
+  group: "Контроль целосстности системы"
+  parameter_name: "Контроль целостности системы"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Добавление SSH-ключа в authorized_keys
+  notes: Видит дозапись ключа, только если каталог ~/.ssh включён в область контроля.
+
+# ═══ Веб-Контроль ════════════════════════════════════════════════════════════
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Контроль безопасности"
+  group: "Веб-Контроль"
+  parameter_name: "Веб-Контроль"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Утечка через веб-сервис или облако
+    - Drive-by компрометация через браузер
+  notes: Ограничивает доступ к категориям сайтов; содержимое не инспектирует.
+
+# ═══ Мониторинг контейнеров ══════════════════════════════════════════════════
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Общие настройки"
+  group: "Настройки проверки контейнеров"
+  parameter_name: "Проверка пространства имен и контейнеров"
+  required_state: { value: true }
+  coverage_strength: prevents
+  threat_vector_names:
+    - Запуск вредоносного контейнера или образа
+  notes: Вредоносный объект в образе/контейнере обнаруживается при запуске.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Общие настройки"
+  group: "Настройки проверки контейнеров"
+  parameter_name: "Проверка пространства имен и контейнеров"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Компрометация цепочки поставок ПО
+  notes: Ловит известный вредонос в образе; целевую закладку — как правило нет.
+
+# ═══ KSN и riskware ══════════════════════════════════════════════════════════
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Общие настройки"
+  group: "Kaspersky Security Network"
+  parameter_name: "Kaspersky Security Network"
+  required_state: { value: true }
+  coverage_strength: compensating
+  threat_vector_names:
+    - Фишинговое вложение в почте
+    - Drive-by компрометация через браузер
+    - Упакованное или обфусцированное ВПО
+    - Запуск вредоносного исполняемого файла пользователем
+    - Компрометация цепочки поставок ПО
+  notes: >
+    Облачная репутация сокращает окно уязвимости до минут, но это усиление
+    других компонентов, а не самостоятельная блокировка.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Общие настройки"
+  group: "Обнаружение других типов объектов"
+  parameter_name: "Легальные приложения, которые могут быть использованы злоумышленниками для нанесения вреда компьютеру или данным пользователя"
+  required_state: { value: true }
+  coverage_strength: detects
+  threat_vector_names:
+    - Скрытый майнинг криптовалюты
+  notes: Обнаруживает известные майнеры и инструменты двойного назначения.
+
+- application_name: "KESL"
+  application_version: "12.4"
+  category: "Параметры приложения"
+  subcategory: "Общие настройки"
+  group: "Обнаружение других типов объектов"
+  parameter_name: "Легальные приложения, которые могут быть использованы злоумышленниками для нанесения вреда компьютеру или данным пользователя"
+  required_state: { value: true }
+  coverage_strength: partial
+  threat_vector_names:
+    - Дамп учётных данных ОС (/etc/shadow, память)
+    - Сканирование сетевых служб
+  notes: Флагует известный инструментарий атакующего (дамперы, сканеры).

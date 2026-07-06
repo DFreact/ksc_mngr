@@ -1,0 +1,84 @@
+# KESL 12.1 — Anti-Cryptor (Network Share Protection)
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Anti-Cryptor"
+  name: "Enabled"
+  value_type: bool
+  default_value: false
+  description: "Monitor shared network directories (SMB/NFS) for mass-encryption patterns characteristic of ransomware."
+  purpose: "Protects file server shares from ransomware running on a remote, potentially unprotected device in the same network."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "The only control that catches ransomware attacking a file server from an unprotected endpoint — no agent needed on the attacking machine."
+    - "Can block the encrypting process mid-attack, limiting the number of files affected."
+  tradeoffs_cons:
+    - "Adds I/O monitoring overhead on the file server — measure impact under realistic concurrent session load before enabling."
+    - "Requires careful sensitivity tuning to avoid false positives during legitimate bulk file operations (backups, migrations, batch compression)."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Anti-Cryptor"
+  name: "Action on detection"
+  value_type: enum
+  enum_options:
+    - "Block"
+    - "Notify"
+  default_value: "Block"
+  description: "Action taken when mass-encryption activity is detected on a monitored network share."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "'Block' immediately cuts off the encrypting process's network access — minimises files encrypted."
+    - "'Notify' is appropriate during initial rollout to baseline normal behavior before enabling blocking."
+  tradeoffs_cons:
+    - "'Block' may disconnect a legitimate process doing bulk file operations (backup, archival). Verify sensitivity threshold first."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Anti-Cryptor"
+  name: "Detection sensitivity"
+  value_type: enum
+  enum_options:
+    - "Low"
+    - "Medium"
+    - "High"
+  default_value: "Medium"
+  description: "Sensitivity of the mass-encryption detection algorithm. Higher sensitivity triggers on fewer operations but increases false positive risk."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "High sensitivity catches ransomware earlier in the encryption process — fewer files affected before blocking."
+  tradeoffs_cons:
+    - "High sensitivity on an active file server with batch operations (nightly backup jobs, mass document processing) produces false positives. Start with Medium and adjust based on observed events."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Anti-Cryptor"
+  name: "Shared folders protection scope"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "path"
+        label: "Shared directory path"
+        type: string
+      - key: "comment"
+        label: "Comment"
+        type: string
+  description: "List of shared directory paths to monitor for ransomware activity."
+  purpose: "Define which Samba/NFS exports are monitored. Common targets: /srv/shares, /home (if home dirs are shared), document repositories."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Anti-Cryptor"
+  name: "Exclusions"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "path"
+        label: "Path to exclude"
+        type: string
+      - key: "comment"
+        label: "Justification"
+        type: string
+  description: "Subdirectories within monitored shares that should not trigger mass-encryption detection."
+  purpose: "Exclude backup staging directories, batch-processing queues, and other paths where bulk file operations are expected."
+  added_in_version: "12.0"

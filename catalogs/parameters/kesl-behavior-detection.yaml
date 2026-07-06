@@ -1,0 +1,70 @@
+# KESL 12.1 — Behavior Detection
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Behavior Detection"
+  name: "Enabled"
+  value_type: bool
+  default_value: true
+  description: "Monitor running processes for suspicious behavioral patterns characteristic of malware (BSS — Behavior Stream Signatures)."
+  purpose: "Detects malware that evades static analysis by monitoring what programs actually do at runtime."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Catches fileless malware, in-memory exploits, and living-off-the-land techniques that leave no file on disk."
+    - "Complements File Threat Protection — even if a file passes the initial scan, harmful behavior triggers detection."
+  tradeoffs_cons:
+    - "Behavioral rules may produce false positives for unusual but legitimate automation scripts. Use exclusions for trusted automation."
+    - "Slight CPU overhead from continuous process monitoring — measure on high-performance workloads."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Behavior Detection"
+  name: "Action on detection of harmful activity"
+  value_type: enum
+  enum_options:
+    - "Block and rollback"
+    - "Block"
+    - "Notify"
+  default_value: "Block and rollback"
+  description: "Action taken when Behavior Detection identifies harmful activity in a running process."
+  purpose: "The rollback option attempts to undo changes made by the malicious process before it was blocked."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "'Block and rollback' is the strongest response — terminates the process AND attempts to restore modified files."
+    - "Rollback is critical for ransomware: if only a few files were encrypted, they can be restored."
+  tradeoffs_cons:
+    - "Rollback is not always possible for all file types; it works best for documents and user files."
+    - "'Notify' only mode is useful during the assessment phase but leaves the system compromised — do not use in production."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Behavior Detection"
+  name: "Skip files with valid digital signature"
+  value_type: bool
+  default_value: true
+  description: "Do not apply behavioral monitoring to processes launched from executables with a valid digital certificate."
+  purpose: "Reduces false positives from trusted vendor software that uses unusual but legitimate system API patterns."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Significantly reduces false positive rate for commercial software (databases, web servers, monitoring agents)."
+  tradeoffs_cons:
+    - "A compromised binary with a stolen certificate bypasses this exclusion. Monitor code-signing certificate validity separately."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Behavior Detection"
+  name: "Exclusions"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "process_path"
+        label: "Process executable path / mask"
+        type: string
+      - key: "threat_name"
+        label: "Threat name to exclude (blank = all)"
+        type: string
+      - key: "comment"
+        label: "Justification"
+        type: string
+  description: "List of process paths excluded from behavioral monitoring."
+  purpose: "Exclude trusted automation, CI/CD agents, and database processes that trigger behavioral signatures."
+  added_in_version: "12.0"

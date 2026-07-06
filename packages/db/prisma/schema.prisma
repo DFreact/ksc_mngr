@@ -1,0 +1,705 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Section 1: Organisation / Library ────────────────────────────────────────
+
+model Environment {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  administrationGroups AdministrationGroup[]
+  automationRules      AutomationRule[]
+  discoveryPollConfigs DiscoveryPollConfig[]
+  tasks                Task[]
+  deviceTagDefinitions DeviceTagDefinition[]
+  changeRequests       ChangeRequest[]
+  userRoleAssignments  KscUserRoleAssignment[]
+  ksnConfig            KsnConfig?
+  backupPolicies       BackupPolicyDefinition[]
+  serverNodes          AdministrationServerNode[]
+
+  @@map("environments")
+}
+
+model AdministrationGroup {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+
+  environment   Environment @relation(fields: [environmentId], references: [id], onDelete: Cascade)
+  environmentId String      @map("environment_id")
+
+  parent   AdministrationGroup?  @relation("GroupTree", fields: [parentId], references: [id])
+  parentId String?               @map("parent_id")
+  children AdministrationGroup[] @relation("GroupTree")
+
+  // Criteria for automatic device placement (moving rules) — stored as JSONB
+  addCriteria Json? @map("add_criteria")
+
+  // Policy links — nullable FKs pointing at Policy (defined below)
+  agentPolicyId String? @map("agent_policy_id")
+  keslPolicyId  String? @map("kesl_policy_id")
+
+  agentPolicy Policy? @relation("AgentPolicyGroup", fields: [agentPolicyId], references: [id])
+  keslPolicy  Policy? @relation("KeslPolicyGroup", fields: [keslPolicyId], references: [id])
+
+  policies Policy[] @relation("PolicyTargetGroup")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("administration_groups")
+}
+
+model DeviceTagDefinition {
+  id          String  @id @default(cuid())
+  name        String
+  color       String?
+  description String?
+
+  environment   Environment @relation(fields: [environmentId], references: [id], onDelete: Cascade)
+  environmentId String      @map("environment_id")
+
+  @@unique([environmentId, name])
+  @@map("device_tag_definitions")
+}
+
+// ─── Section 2: Automations ───────────────────────────────────────────────────
+
+enum AutomationKind {
+  moving_rule
+  tagging_rule
+  task_trigger
+  device_selection
+  discovery_poll
+
+  @@map("automation_kind")
+}
+
+model AutomationRule {
+  id       String         @id @default(cuid())
+  kind     AutomationKind
+  name     String
+  priority Int            @default(100)
+  enabled  Boolean        @default(true)
+
+  // condition built from CriteriaCatalog entries
+  condition Json
+
+  // action: move_to_group | assign_tag | run_task | notify
+  action Json
+
+  environment   Environment @relation(fields: [environmentId], references: [id], onDelete: Cascade)
+  environmentId String      @map("environment_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("automation_rules")
+}
+
+enum CriteriaGroup {
+  network
+  ad
+  application
+  protection
+  virtualisation
+
+  @@map("criteria_group")
+}
+
+enum ValueType {
+  bool
+  enum
+  number
+  string
+  list
+
+  @@map("value_type")
+}
+
+model CriteriaCatalog {
+  id              String        @id @default(cuid())
+  criteriaKey     String        @unique @map("criteria_key")
+  group           CriteriaGroup
+  valueType       ValueType     @map("value_type")
+  operatorOptions Json          @map("operator_options") // string[]
+  description     String?
+
+  @@map("criteria_catalog")
+}
+
+enum TriggerType {
+  schedule
+  on_event
+  on_task_complete
+  on_app_launch
+  after_db_update
+
+  @@map("trigger_type")
+}
+
+model TaskTriggerCatalog {
+  id          String      @id @default(cuid())
+  triggerType TriggerType @map("trigger_type")
+  paramsSchema Json       @map("params_schema")
+
+  tasks Task[]
+
+  @@map("task_trigger_catalog")
+}
+
+enum DiscoveryPollType {
+  domain_controller
+  ip_range
+  zeroconf
+
+  @@map("discovery_poll_type")
+}
+
+model DiscoveryPollConfig {
+  id          String            @id @default(cuid())
+  pollType    DiscoveryPollType @map("poll_type")
+  enabled     Boolean           @default(true)
+  schedule    Json
+  executor    String            @default("admin_server")
+  description String?
+  targets     Json?             // domain addresses (domain_controller) or IP ranges (ip_range)
+
+  environment   Environment @relation(fields: [environmentId], references: [id], onDelete: Cascade)
+  environmentId String      @map("environment_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("discovery_poll_configs")
+}
+
+// ─── Section 3: Policies & Tasks — catalogs ───────────────────────────────────
+
+model Application {
+  id      String @id @default(cuid())
+  name    String // "Агент администрирования" | "KESL"
+  version String
+
+  parameterCatalogEntries ParameterCatalog[]
+  eventCatalogEntries     EventCatalog[]
+  taskTemplates           TaskTemplate[]
+  policies                Policy[]
+
+  @@unique([name, version])
+  @@map("applications")
+}
+
+model ParameterCatalog {
+  id          String    @id @default(cuid())
+  category    String
+  subcategory String?
+  group       String?
+  name        String
+  valueType   ValueType @map("value_type")
+
+  // enum_options stored as JSONB string[]
+  enumOptions Json? @map("enum_options")
+  unit        String?
+  defaultValue Json? @map("default_value")
+
+  // For nested table parameters (exclusions, lists, etc.)
+  listSchema Json? @map("list_schema")
+
+  description String?
+  purpose     String?
+  docUrl      String? @map("doc_url")
+
+  addedInVersion     String? @map("added_in_version")
+  deprecatedInVersion String? @map("deprecated_in_version")
+  removedInVersion   String? @map("removed_in_version")
+
+  // Tradeoffs (section 15)
+  tradeoffsPros       Json?     @map("tradeoffs_pros")
+  tradeoffsCons       Json?     @map("tradeoffs_cons")
+  tradeoffsReviewedBy String?   @map("tradeoffs_reviewed_by")
+  tradeoffsReviewedAt DateTime? @map("tradeoffs_reviewed_at")
+
+  application   Application @relation(fields: [applicationId], references: [id])
+  applicationId String      @map("application_id")
+
+  policySettings  PolicySetting[]
+  controlMappings ControlMapping[]
+
+  @@map("parameter_catalog")
+}
+
+enum EventSeverity {
+  critical
+  functional_failure
+  warning
+  informational
+
+  @@map("event_severity")
+}
+
+model EventCatalog {
+  id        String        @id @default(cuid())
+  component String
+  name      String
+  severity  EventSeverity
+
+  // available_channels: email | sms | exec | syslog | os-log-local | os-log-server | snmp
+  availableChannels Json    @map("available_channels") // string[]
+  defaultStorageDays Int    @default(30) @map("default_storage_days")
+  description       String?
+
+  application   Application @relation(fields: [applicationId], references: [id])
+  applicationId String      @map("application_id")
+
+  policyEventSettings PolicyEventSetting[]
+
+  @@map("event_catalog")
+}
+
+model DeviceTypeCatalog {
+  id            String  @id @default(cuid())
+  catalogKey    String  @unique @map("catalog_key") // slug id from device_control.yaml
+  name          String  @unique
+  section       String? // Устройства и сети Wi-Fi | Внешние устройства | Сети Wi-Fi | Прочие устройства
+  accessOptions Json    @map("access_options") // string[]
+
+  policyDeviceSettings PolicyDeviceSetting[]
+
+  @@map("device_type_catalog")
+}
+
+// Singleton-style metadata for the Device Control component:
+// bus types, bus access options, custom access rules table schema.
+model DeviceControlMeta {
+  id                String @id @default("default")
+  busTypes          Json   @map("bus_types") // string[]
+  busAccessOptions  Json   @map("bus_access_options") // string[]
+  allAccessOptions  Json   @map("all_access_options") // string[]
+  customRulesSchema Json   @map("custom_rules_schema") // columns[]
+
+  @@map("device_control_meta")
+}
+
+// Per-policy access mode for each device type (the device control matrix).
+model PolicyDeviceSetting {
+  policy   Policy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  policyId String @map("policy_id")
+
+  deviceType   DeviceTypeCatalog @relation(fields: [deviceTypeId], references: [id])
+  deviceTypeId String            @map("device_type_id")
+
+  access String // one of deviceType.accessOptions
+
+  @@id([policyId, deviceTypeId])
+  @@map("policy_device_settings")
+}
+
+// Catalog of named list-table types (trusted devices, exclusions, packet rules…).
+// columns is the table schema: [{key, label, type, options?}]
+model ListTypeCatalog {
+  id         String  @id // stable id from kesl_list_schemas.yaml, e.g. "trusted_devices"
+  name       String
+  component  String? // display component name from the source workbook
+  columns    Json
+
+  policyListSettings PolicyListSetting[]
+
+  @@map("list_type_catalog")
+}
+
+// ─── KSC console navigation (section_map.yaml) ────────────────────────────────
+
+model KscSection {
+  id        String @id // e.g. "essential_tp"
+  name      String
+  sortOrder Int    @default(0) @map("sort_order")
+
+  components KscComponent[]
+  mappings   KscSubcategoryMapping[]
+
+  @@map("ksc_sections")
+}
+
+model KscComponent {
+  id        String @id // e.g. "file_tp"
+  name      String
+  sortOrder Int    @default(0) @map("sort_order")
+
+  section   KscSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  sectionId String     @map("section_id")
+
+  mappings KscSubcategoryMapping[]
+
+  @@map("ksc_components")
+}
+
+// Maps a parameter's subcategory (excel_subcategory) to a KSC console location.
+// verified=false → «расположение уточняется». Admin can override in UI;
+// overridden=true marks a DB-level correction that survives catalog reseeds.
+model KscSubcategoryMapping {
+  id               String  @id @default(cuid())
+  excelSubcategory String  @unique @map("excel_subcategory")
+  verified         Boolean @default(false)
+  overridden       Boolean @default(false)
+  docUrl           String? @map("doc_url")
+  note             String?
+
+  section     KscSection   @relation(fields: [sectionId], references: [id])
+  sectionId   String       @map("section_id")
+  component   KscComponent @relation(fields: [componentId], references: [id])
+  componentId String       @map("component_id")
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("ksc_subcategory_mappings")
+}
+
+model TaskTemplate {
+  id                 String  @id @default(cuid())
+  name               String
+  description        String?
+  defaultTriggerType String? @map("default_trigger_type")
+  paramsSchema       Json    @map("params_schema")
+
+  application   Application @relation(fields: [applicationId], references: [id])
+  applicationId String      @map("application_id")
+
+  tasks Task[]
+
+  @@map("task_templates")
+}
+
+// ─── Section 3: Policies & Tasks — working data ───────────────────────────────
+
+enum PolicyStatus {
+  active
+  inactive
+  out_of_office
+
+  @@map("policy_status")
+}
+
+model Policy {
+  id   String @id @default(cuid())
+  name String
+
+  application   Application @relation(fields: [applicationId], references: [id])
+  applicationId String      @map("application_id")
+
+  targetGroup   AdministrationGroup? @relation("PolicyTargetGroup", fields: [targetGroupId], references: [id])
+  targetGroupId String?              @map("target_group_id")
+
+  // Self-referential: explicit parent override (normally resolved from group tree)
+  parentPolicy   Policy?  @relation("PolicyInheritance", fields: [parentPolicyId], references: [id])
+  parentPolicyId String?  @map("parent_policy_id")
+  childPolicies  Policy[] @relation("PolicyInheritance")
+
+  status               PolicyStatus @default(active)
+  inheritFromParent    Boolean      @default(true) @map("inherit_from_parent")
+  forceInheritToChildren Boolean    @default(false) @map("force_inherit_to_children")
+
+  settings       PolicySetting[]
+  listSettings   PolicyListSetting[]
+  eventSettings  PolicyEventSetting[]
+  deviceSettings PolicyDeviceSetting[]
+
+  // Back-references for groups that pin this policy
+  groupsUsingAsAgent AdministrationGroup[] @relation("AgentPolicyGroup")
+  groupsUsingAsKesl  AdministrationGroup[] @relation("KeslPolicyGroup")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("policies")
+}
+
+model PolicySetting {
+  policy   Policy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  policyId String @map("policy_id")
+
+  parameter   ParameterCatalog @relation(fields: [parameterId], references: [id])
+  parameterId String           @map("parameter_id")
+
+  value     Json
+  forced    Boolean @default(false) // lock icon — cannot be overridden downstream
+  inherited Boolean @default(false) // derived from parent, not set locally
+
+  @@id([policyId, parameterId])
+  @@map("policy_settings")
+}
+
+model PolicyListSetting {
+  id        String @id @default(cuid())
+  rowData   Json   @map("row_data") // shape matches list type columns / parameter list_schema
+  sortOrder Int    @default(0) @map("sort_order")
+
+  policy   Policy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  policyId String @map("policy_id")
+
+  // Either a named list type (kesl_list_schemas.yaml) or a list-valued parameter
+  listType   ListTypeCatalog? @relation(fields: [listTypeId], references: [id])
+  listTypeId String?          @map("list_type_id")
+
+  parameterId String? @map("parameter_id")
+
+  @@map("policy_list_settings")
+}
+
+model PolicyEventSetting {
+  policy  Policy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  policyId String @map("policy_id")
+
+  event   EventCatalog @relation(fields: [eventId], references: [id])
+  eventId String       @map("event_id")
+
+  storageDays Int      @default(30) @map("storage_days")
+  channels    Json     // string[]
+  enabled     Boolean  @default(true)
+
+  @@id([policyId, eventId])
+  @@map("policy_event_settings")
+}
+
+model Task {
+  id        String @id @default(cuid())
+  scopeType String @map("scope_type") // "group" | "device_selection"
+  scopeId   String @map("scope_id")
+
+  // trigger config: reference + parameters
+  trigger Json
+
+  params  Json
+  enabled Boolean @default(true)
+
+  environment   Environment @relation(fields: [environmentId], references: [id], onDelete: Cascade)
+  environmentId String      @map("environment_id")
+
+  template   TaskTemplate @relation(fields: [templateId], references: [id])
+  templateId String       @map("template_id")
+
+  triggerCatalogEntry   TaskTriggerCatalog? @relation(fields: [triggerCatalogId], references: [id])
+  triggerCatalogId      String?             @map("trigger_catalog_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("tasks")
+}
+
+// ─── Section 4: Change Management ─────────────────────────────────────────────
+
+enum ChangeRequestStatus {
+  draft
+  in_review
+  approved
+  applied
+  rejected
+  rolled_back
+
+  @@map("change_request_status")
+}
+
+model ChangeRequest {
+  id            String               @id @default(cuid())
+  title         String
+  description   String?
+  authorId      String               @map("author_id")   // free-text name for MVP (no auth)
+  status        ChangeRequestStatus  @default(draft)
+  relatedTicket String?              @map("related_ticket")
+
+  environment   Environment @relation(fields: [environmentId], references: [id], onDelete: Cascade)
+  environmentId String      @map("environment_id")
+
+  revisions Revision[]
+  approvals Approval[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("change_requests")
+}
+
+model Revision {
+  id         String @id @default(cuid())
+  entityType String @map("entity_type")  // policy | group | automation | task | discovery
+  entityId   String @map("entity_id")
+  entityName String @map("entity_name")  // display name snapshot
+  diff       Json                        // [{field, before, after}]
+
+  changeRequest   ChangeRequest @relation(fields: [changeRequestId], references: [id], onDelete: Cascade)
+  changeRequestId String        @map("change_request_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("revisions")
+}
+
+model Approval {
+  id         String    @id @default(cuid())
+  approverId String    @map("approver_id")  // free-text name for MVP
+  decision   String?                        // "approved" | "rejected"
+  comment    String?
+  decidedAt  DateTime? @map("decided_at")
+
+  changeRequest   ChangeRequest @relation(fields: [changeRequestId], references: [id], onDelete: Cascade)
+  changeRequestId String        @map("change_request_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("approvals")
+}
+
+// ─── Section 6: RBAC, KSN, Backup, Server Hierarchy ──────────────────────────
+
+model KscFunctionalAreaCatalog {
+  id                String  @id @default(cuid())
+  group             String  // general | system_management | mobile_device_management
+  name              String  @unique
+  description       String?
+  applicableToLinux Boolean @default(true) @map("applicable_to_linux")
+
+  grants KscRoleGrant[]
+
+  @@map("ksc_functional_area_catalog")
+}
+
+model KscRoleDefinition {
+  id           String  @id @default(cuid())
+  name         String  @unique
+  isPredefined Boolean @default(false) @map("is_predefined")
+  description  String?
+  scopeType    String  @default("server") @map("scope_type")
+
+  grants      KscRoleGrant[]
+  assignments KscUserRoleAssignment[]
+
+  @@map("ksc_role_definitions")
+}
+
+model KscRoleGrant {
+  id               String @id @default(cuid())
+  rights           Json   // { read, write, execute, perform_on_selections }
+
+  role             KscRoleDefinition        @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  roleId           String                   @map("role_id")
+  functionalArea   KscFunctionalAreaCatalog @relation(fields: [functionalAreaId], references: [id])
+  functionalAreaId String                   @map("functional_area_id")
+
+  @@unique([roleId, functionalAreaId])
+  @@map("ksc_role_grants")
+}
+
+model KscUserRoleAssignment {
+  id            String  @id @default(cuid())
+  userRef       String  @map("user_ref")
+  scopeObjectId String? @map("scope_object_id")
+
+  environment   Environment       @relation(fields: [environmentId], references: [id], onDelete: Cascade)
+  environmentId String            @map("environment_id")
+  role          KscRoleDefinition @relation(fields: [roleId], references: [id])
+  roleId        String            @map("role_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("ksc_user_role_assignments")
+}
+
+model KsnConfig {
+  id                   String  @id @default(cuid())
+  participationEnabled Boolean @default(false) @map("participation_enabled")
+  extendedModeEnabled  Boolean @default(false) @map("extended_mode_enabled")
+  provider             String  @default("global") // global | private
+  allowDirectFallback  Boolean @default(false) @map("allow_direct_fallback")
+  privateKsnConfigPath String? @map("private_ksn_config_path")
+  proxyHostRef         String  @default("admin_server") @map("proxy_host_ref")
+  tcpPort              Int     @default(13111) @map("tcp_port")
+  udpEnabled           Boolean @default(false) @map("udp_enabled")
+  udpPort              Int     @default(15111) @map("udp_port")
+
+  environment   Environment @relation(fields: [environmentId], references: [id], onDelete: Cascade)
+  environmentId String      @unique @map("environment_id")
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("ksn_configs")
+}
+
+model BackupPolicyDefinition {
+  id                String  @id @default(cuid())
+  schedule          Json
+  storageTarget     String  @default("local_path") @map("storage_target")
+  storagePath       String? @map("storage_path")
+  passwordProtected Boolean @default(true) @map("password_protected")
+  retentionDays     Int     @default(30) @map("retention_days")
+  enabled           Boolean @default(true)
+  notes             String?
+
+  environment   Environment @relation(fields: [environmentId], references: [id], onDelete: Cascade)
+  environmentId String      @map("environment_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("backup_policy_definitions")
+}
+
+model AdministrationServerNode {
+  id                String  @id @default(cuid())
+  role              String  // primary | secondary | virtual
+  name              String
+  connectionAddress String? @map("connection_address")
+  osKind            String  @default("linux") @map("os_kind")
+  notes             String?
+
+  parent   AdministrationServerNode?  @relation("ServerTree", fields: [parentId], references: [id])
+  parentId String?                    @map("parent_id")
+  children AdministrationServerNode[] @relation("ServerTree")
+
+  environment   Environment? @relation(fields: [environmentId], references: [id])
+  environmentId String?      @map("environment_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("administration_server_nodes")
+}
+
+// ─── Section 16: Attack matrix ────────────────────────────────────────────────
+
+model ThreatVectorCatalog {
+  id                 String   @id @default(cuid())
+  tactic             String   // MITRE macro-category
+  name               String   @unique
+  description        String?
+  mitreTechniqueRef  String?  @map("mitre_technique_ref")
+  controlMappings    ControlMapping[]
+  createdAt          DateTime @default(now()) @map("created_at")
+
+  @@map("threat_vector_catalog")
+}
+
+model ControlMapping {
+  id               String   @id @default(cuid())
+  requiredState    Json     @map("required_state")  // {value: <expectedValue>}
+  coverageStrength String   @map("coverage_strength") // prevents | detects | partial | compensating
+  notes            String?
+
+  parameter     ParameterCatalog     @relation(fields: [parameterId], references: [id])
+  parameterId   String               @map("parameter_id")
+  threatVectors ThreatVectorCatalog[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("control_mappings")
+}

@@ -1,0 +1,69 @@
+- name: basic_functionality
+  group: general
+  applicable_to_linux: true
+  description: "Базовые операции: обновления, отчёты о защите/угрозах, стандартные задачи. Нужна почти всем."
+
+- name: management_of_administration_groups
+  group: general
+  applicable_to_linux: true
+  description: "Добавление/удаление устройств и подгрупп в дереве групп администрирования."
+
+- name: access_objects_regardless_of_acls
+  group: general
+  applicable_to_linux: true
+  description: "Доступ ко всем объектам вне зависимости от их персональных ACL. Только для аудиторов."
+
+- name: deleted_objects
+  group: general
+  applicable_to_linux: true
+  description: "Просмотр и очистка Корзины удалённых объектов."
+
+- name: event_processing
+  group: general
+  applicable_to_linux: true
+  description: "Настройка регистрации событий, уведомлений, порогов вирусной вспышки, SIEM-интеграция."
+
+- name: operations_on_administration_server
+  group: general
+  applicable_to_linux: true
+  description: "Бэкап/обслуживание БД сервера, настройка портов подключения."
+
+- name: kaspersky_software_deployment
+  group: general
+  applicable_to_linux: true
+  description: "Развёртывание приложений Kaspersky, управление установочными пакетами и патчами."
+
+- name: license_key_management
+  group: general
+  applicable_to_linux: true
+  description: "Экспорт файла ключа, изменение настроек лицензии. Ограничить доверенным кругом."
+
+- name: enforced_report_management
+  group: general
+  applicable_to_linux: true
+  description: "Создание/выполнение отчётов вне зависимости от их ACL. Для аудиторов и руководителей."
+
+- name: hierarchy_of_administration_servers
+  group: general
+  applicable_to_linux: true
+  description: "Регистрация/удаление вторичных серверов в иерархии."
+
+- name: user_permissions
+  group: general
+  applicable_to_linux: true
+  description: "Управление ролями, локальными пользователями KSC. Право раздавать права — только доверенным."
+
+- name: virtual_administration_servers
+  group: general
+  applicable_to_linux: true
+  description: "Управление виртуальными серверами для мультитенантности."
+
+- name: encryption_key_management
+  group: general
+  applicable_to_linux: false
+  description: "Экспорт/импорт ключей шифрования. Актуально для Windows/BitLocker, на чистом Linux — нет."
+
+- name: kesl_management
+  group: general
+  applicable_to_linux: true
+  description: "Управление политиками и задачами Kaspersky Endpoint Security для Linux."

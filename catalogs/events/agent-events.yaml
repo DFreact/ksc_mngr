@@ -1,0 +1,54 @@
+# Administration Agent 15.0 — Events catalog
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  component: "Connection"
+  name: "Device connected to Administration Server"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 3
+  description: "The agent successfully connected to the Administration Server."
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  component: "Connection"
+  name: "Device disconnected from Administration Server"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 7
+  description: "The agent lost connection to the Administration Server."
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  component: "Updates"
+  name: "Agent updated successfully"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 3
+  description: "The Administration Agent was updated to a new version."
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  component: "Updates"
+  name: "Agent update error"
+  severity: functional_failure
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 14
+  description: "An error occurred while updating the Administration Agent."
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  component: "Policy"
+  name: "Policy applied"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 3
+  description: "A policy was successfully applied to the device."
+
+- application_name: "Агент администрирования"
+  application_version: "15.0"
+  component: "Policy"
+  name: "Policy application error"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 14
+  description: "A policy could not be applied due to an error."

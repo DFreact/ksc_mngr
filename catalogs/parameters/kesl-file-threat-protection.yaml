@@ -1,0 +1,233 @@
+# KESL 12.1 — File Threat Protection (On-Access Scanner)
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "Enabled"
+  value_type: bool
+  default_value: true
+  description: "Enables or disables real-time file scanning (On-Access Scanner)."
+  purpose: "Core protection component. Intercepts file read/write/execute operations and scans them before the OS processes the request."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Catches malware at the moment the file is accessed — before execution."
+    - "Transparent to users and applications; no manual scan required."
+  tradeoffs_cons:
+    - "Adds latency on heavily-loaded file servers; use exclusions for build artifact directories and database files."
+    - "Cannot be disabled while policy has 'Forced' flag set — plan maintenance windows accordingly."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "Scan archives"
+  value_type: bool
+  default_value: true
+  description: "Scan contents of archive files (zip, tar, gz, bz2, 7z, rar, etc.)."
+  purpose: "Prevents malware from evading detection by being packaged inside an archive."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Blocks the classic 'malware in a zip' bypass technique used by most commodity email threats."
+  tradeoffs_cons:
+    - "Significantly increases scan time and CPU/IO load on file servers with large numbers of archives."
+    - "Nested archives (zip-in-zip) multiply scan depth — set 'Maximum nesting level' to limit recursion."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "Scan SFX archives"
+  value_type: bool
+  default_value: true
+  description: "Scan self-extracting (SFX) archive files in addition to standard archives."
+  purpose: "SFX archives are executable files that extract on launch — a common delivery vector for droppers."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Catches malware packaged as self-extracting installers, a common technique in targeted attacks."
+  tradeoffs_cons:
+    - "Slight additional overhead; negligible in most environments compared to standard archive scanning."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "Scan packed objects"
+  value_type: bool
+  default_value: true
+  description: "Scan executables packed with runtime packers (UPX, MPRESS, etc.)."
+  purpose: "Runtime packers are used both legitimately and to hide malicious code from static analysis."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Detects malware that uses packing to evade signature-based detection."
+  tradeoffs_cons:
+    - "Legitimate software (compilers, game engines) sometimes uses packers — may produce false positives without exclusions."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "Scan password-protected archives"
+  value_type: bool
+  default_value: false
+  description: "Attempt to scan password-protected archives. Without the password, KESL logs the attempt but cannot inspect the contents."
+  purpose: "Enables logging of encrypted archive access for audit; actual scanning requires the password to be known."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "At minimum, logs every access to a password-protected archive — useful for detection and audit."
+  tradeoffs_cons:
+    - "Cannot scan the content without the password; provides false confidence if treated as a real control."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "Maximum nesting level for archives"
+  value_type: number
+  unit: "levels"
+  default_value: 8
+  description: "Maximum recursion depth for scanning nested archives (archives inside archives)."
+  purpose: "Limits CPU consumption from deeply nested archive bombs while still covering realistic threat scenarios."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Prevents archive bomb attacks (recursive archives designed to exhaust resources)."
+  tradeoffs_cons:
+    - "Malware packaged more than N levels deep will not be scanned; in practice, real malware rarely nests beyond 3-4 levels."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "iSwift technology"
+  value_type: bool
+  default_value: true
+  description: "Cache file scan results by content hash. Re-scans a file only if its hash has changed since the last successful scan."
+  purpose: "Dramatically reduces repeated scanning overhead on static content (OS files, installed applications)."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Reduces CPU load on file-heavy workloads by 30-70% by skipping unchanged files."
+    - "Transparent — no behavioral change for end users or applications."
+  tradeoffs_cons:
+    - "Very rare edge case: if a file is replaced with a different file that has the same hash (collision), the replacement may not be rescanned. SHA-based cache mitigates this."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "iChecker technology"
+  value_type: bool
+  default_value: true
+  description: "Skip scanning files whose size, timestamp, and metadata have not changed since the last scan."
+  purpose: "Complements iSwift with a faster metadata-based pre-check before hash computation."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Near-zero overhead for unchanged files; the check is a metadata lookup, not a hash computation."
+  tradeoffs_cons:
+    - "Less reliable than iSwift against file-modification timestamp manipulation (attacker could spoof mtime)."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "Heuristic analysis level"
+  value_type: enum
+  enum_options:
+    - "Disabled"
+    - "Light"
+    - "Standard"
+    - "Deep"
+  default_value: "Standard"
+  description: "Level of heuristic analysis applied to files during scanning. Higher levels detect more unknown threats but increase false positive rate and scan time."
+  purpose: "Heuristics catch zero-day malware that has no signature yet. Tune the level based on the sensitivity of the workload."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Standard/Deep levels detect malware variants not yet in the antivirus database."
+    - "Critical for catching initial access payloads before they are widely reported."
+  tradeoffs_cons:
+    - "Deep heuristics significantly increase scan time and may produce false positives on custom in-house scripts and build tools."
+    - "Disabled level leaves the system vulnerable to zero-day malware; only acceptable for specific performance-constrained workloads with compensating controls."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "Action on threat detection"
+  value_type: enum
+  enum_options:
+    - "Disinfect"
+    - "Block"
+    - "Notify"
+    - "Delete"
+  default_value: "Disinfect"
+  description: "Primary action taken when a threat is detected in a file."
+  purpose: "Choose the automated response to malware detection."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "'Block' prevents the file from being accessed at all — the most secure option when availability is not critical."
+    - "'Disinfect' preserves the file if a clean copy can be extracted; reduces impact on document workflows."
+  tradeoffs_cons:
+    - "'Notify' only logs the detection — no remediation occurs. Use only for monitoring/audit phases, never in production."
+    - "'Delete' cannot be undone; only use when files are recoverable from backup or a versioned source."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "Action if disinfection fails"
+  value_type: enum
+  enum_options:
+    - "Block"
+    - "Delete"
+    - "Skip"
+  default_value: "Block"
+  description: "Fallback action when KESL detects a threat but cannot disinfect the file."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "'Block' prevents access to the infected file without destroying it — allows later analysis."
+    - "'Delete' removes the threat immediately; suitable for transient files (downloads, temp files)."
+  tradeoffs_cons:
+    - "'Skip' leaves the infected file accessible — only acceptable in a strictly monitored investigation scenario."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "Scan only new and changed files"
+  value_type: bool
+  default_value: false
+  description: "Limit scanning to files that have been created or modified since the last scan."
+  purpose: "Performance optimisation on large, mostly-static datasets (archive servers, media repositories)."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Reduces scan load by orders of magnitude on mostly-static file collections."
+  tradeoffs_cons:
+    - "Files created before the feature was enabled are not rescanned — ensure a full scan baseline was run first."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "Scan timeout (seconds)"
+  value_type: number
+  unit: "seconds"
+  default_value: 60
+  description: "Maximum time KESL spends scanning a single file. If exceeded, the file is skipped and an event is logged."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Prevents a single large or pathological file from blocking the scan queue indefinitely."
+  tradeoffs_cons:
+    - "Skipped files are not scanned — a very short timeout on large files effectively disables protection for them."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  name: "Exclusions"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "path"
+        label: "Path / mask"
+        type: string
+      - key: "object"
+        label: "Object type"
+        type: enum
+        options: ["File", "Directory", "Symbolic link"]
+      - key: "apply_to_subdirectories"
+        label: "Apply to subdirectories"
+        type: bool
+      - key: "comment"
+        label: "Comment / justification"
+        type: string
+  description: "List of paths, masks, or objects excluded from File Threat Protection."
+  purpose: "Reduce false positives and performance impact for trusted paths: database files, build output, CI/CD working directories."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Eliminates I/O bottlenecks for high-throughput paths (databases, VM disk images, container layers)."
+  tradeoffs_cons:
+    - "Each exclusion is a blind spot — justify and review exclusions regularly; document in Change Management."

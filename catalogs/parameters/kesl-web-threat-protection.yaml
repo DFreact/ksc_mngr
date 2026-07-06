@@ -1,0 +1,109 @@
+# KESL 12.1 — Web Threat Protection
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Web Threat Protection"
+  name: "Enabled"
+  value_type: bool
+  default_value: true
+  description: "Enables scanning of HTTP and HTTPS traffic for malicious URLs, phishing pages, and web-delivered malware."
+  purpose: "Intercepts web requests at the kernel network filter level and scans responses before they reach the browser or download tool."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Blocks drive-by download attempts and malicious URLs in real time, regardless of which browser or tool is used."
+    - "Works on command-line downloads (curl, wget, yum, pip) in addition to GUI browsers."
+  tradeoffs_cons:
+    - "Adds latency to all HTTP/HTTPS responses. On high-throughput download servers this can be noticeable."
+    - "HTTPS scanning requires certificate injection — validate that custom CA certificates are trusted on all endpoints."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Web Threat Protection"
+  name: "Action on malicious URL"
+  value_type: enum
+  enum_options:
+    - "Block"
+    - "Warn"
+    - "Allow"
+  default_value: "Block"
+  description: "Action taken when a URL is identified as malicious by the antivirus database or KSN reputation."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "'Block' prevents the download or page load entirely — no user interaction required."
+  tradeoffs_cons:
+    - "'Allow' with 'Warn' is useful during rollout to understand impact before switching to Block, but should not be permanent."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Web Threat Protection"
+  name: "Action on phishing URL"
+  value_type: enum
+  enum_options:
+    - "Block"
+    - "Warn"
+    - "Allow"
+  default_value: "Block"
+  description: "Action taken when a URL is identified as a phishing site by the Kaspersky phishing database."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Blocks credential-harvesting pages before the user enters data."
+  tradeoffs_cons:
+    - "Phishing database coverage is limited to known pages; new phishing domains created in the last hours will not be blocked without heuristic analysis."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Web Threat Protection"
+  name: "Check URLs against Kaspersky phishing database"
+  value_type: bool
+  default_value: true
+  description: "Look up each visited URL in Kaspersky's database of known phishing domains and pages."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Web Threat Protection"
+  name: "Heuristic analysis"
+  value_type: bool
+  default_value: true
+  description: "Apply heuristic analysis to web content to detect new, previously unknown malicious pages and scripts."
+  purpose: "Catches new phishing pages and exploit kits not yet in the signature database."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Detects new phishing campaigns within minutes of launch, before database update."
+  tradeoffs_cons:
+    - "May occasionally flag legitimate internal web applications with unusual JavaScript patterns — add to trusted URLs list."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Web Threat Protection"
+  name: "Scan HTTPS traffic"
+  value_type: bool
+  default_value: true
+  description: "Enable scanning of HTTPS traffic by performing TLS interception (man-in-the-middle via trusted root certificate)."
+  purpose: "Most malware delivery and C2 traffic is now HTTPS. Without this setting, Web Threat Protection only sees HTTP."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Without HTTPS scanning, ~90% of web traffic is invisible to Web Threat Protection — the feature is largely ineffective."
+  tradeoffs_cons:
+    - "Requires deploying the KESL root CA certificate to all browsers and OS trust stores. Applications using certificate pinning will break and need to be excluded."
+    - "Certificate interception may violate privacy expectations for personal devices on BYOD networks."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Web Threat Protection"
+  name: "Trusted URLs"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "url"
+        label: "URL / mask"
+        type: string
+      - key: "comment"
+        label: "Justification"
+        type: string
+  description: "List of URLs or URL masks excluded from Web Threat Protection scanning."
+  purpose: "Exclude internal services, trusted partner portals, and applications that break under HTTPS inspection."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Prevents false positives for well-known, trusted services (package repositories, internal portals)."
+  tradeoffs_cons:
+    - "Each trusted URL is a blind spot — document justification and review quarterly."

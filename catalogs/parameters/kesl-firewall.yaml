@@ -1,0 +1,142 @@
+# KESL 12.1 — Firewall Management
+# Note: KESL manages the OS firewall (iptables/nftables). Default is OFF.
+# When enabled, KESL takes ownership of the firewall rules table.
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Firewall Management"
+  name: "Enabled"
+  value_type: bool
+  default_value: false
+  description: "Allow KESL to manage the Linux host-based firewall (iptables/nftables). When enabled, KESL overwrites and owns the firewall rule set."
+  purpose: "Centralise firewall policy management through KSC instead of local iptables scripts — ensures rules cannot be changed outside policy."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Guarantees firewall rules cannot be modified locally without KSC policy change — prevents insider rule tampering."
+    - "Rules are version-controlled in KSC and rolled back on policy removal."
+  tradeoffs_cons:
+    - "KESL takes exclusive control of iptables. Any existing local rules are replaced. Misconfigured rules can cut off SSH access — plan and test thoroughly before rollout to production."
+    - "Requires careful coordination with infrastructure teams who may manage iptables separately (Ansible, cloud security groups)."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Firewall Management"
+  name: "Default incoming packet action"
+  value_type: enum
+  enum_options:
+    - "Allow"
+    - "Block"
+    - "Drop"
+  default_value: "Allow"
+  description: "Default action for incoming network packets not matched by any explicit rule."
+  purpose: "Set the host firewall posture. 'Block' returns an ICMP reject; 'Drop' silently discards packets."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "'Block'/'Drop' as default implements a deny-by-default posture — every allowed service must be explicitly permitted."
+    - "'Drop' is preferable to 'Block' for internet-facing hosts — does not confirm the host exists to port scanners."
+  tradeoffs_cons:
+    - "Switching to 'Block'/'Drop' without complete allow rules will immediately break services. Always test in a staging environment first."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Firewall Management"
+  name: "Default outgoing packet action"
+  value_type: enum
+  enum_options:
+    - "Allow"
+    - "Block"
+    - "Drop"
+  default_value: "Allow"
+  description: "Default action for outgoing network packets not matched by any explicit rule."
+  purpose: "Outgoing default-block implements egress filtering — prevents malware C2 and data exfiltration over unknown ports."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Egress filtering significantly hampers ransomware C2 communication and data exfiltration."
+    - "Forces explicit approval of every outbound network service — improves network asset visibility."
+  tradeoffs_cons:
+    - "High management overhead: every outbound service must be explicitly allowed. Start with 'Allow' and tighten incrementally as services are catalogued."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Firewall Management"
+  name: "Delete all rules when policy is removed"
+  value_type: bool
+  default_value: true
+  description: "When the KESL policy is removed or the component is disabled, clear all managed iptables rules."
+  purpose: "Ensures a clean state when transitioning to a different firewall management tool or removing KESL."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Prevents orphaned firewall rules that could either block traffic or leave security gaps after policy removal."
+  tradeoffs_cons:
+    - "If set to false, previous rules persist after disabling — can be intentional for gradual rollback scenarios."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Firewall Management"
+  name: "Network packet rules"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "name"
+        label: "Rule name"
+        type: string
+      - key: "action"
+        label: "Action"
+        type: enum
+        options: ["Allow", "Block", "Drop"]
+      - key: "direction"
+        label: "Direction"
+        type: enum
+        options: ["Incoming", "Outgoing", "Both"]
+      - key: "protocol"
+        label: "Protocol"
+        type: enum
+        options: ["TCP", "UDP", "ICMP", "Any"]
+      - key: "local_address"
+        label: "Local address"
+        type: string
+      - key: "local_port"
+        label: "Local port / range"
+        type: string
+      - key: "remote_address"
+        label: "Remote address / CIDR"
+        type: string
+      - key: "remote_port"
+        label: "Remote port / range"
+        type: string
+      - key: "comment"
+        label: "Comment"
+        type: string
+  description: "Low-level packet filter rules applied regardless of which application initiates the connection."
+  purpose: "Define host-level network allow/deny rules: SSH access from management networks, deny direct internet, allow monitoring agents."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Firewall Management"
+  name: "Application network rules"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "application_path"
+        label: "Application executable path"
+        type: string
+      - key: "action"
+        label: "Action"
+        type: enum
+        options: ["Allow", "Block"]
+      - key: "direction"
+        label: "Direction"
+        type: enum
+        options: ["Incoming", "Outgoing", "Both"]
+      - key: "remote_address"
+        label: "Remote address / CIDR"
+        type: string
+      - key: "remote_port"
+        label: "Remote port"
+        type: string
+      - key: "comment"
+        label: "Comment"
+        type: string
+  description: "Per-application network rules. An application not listed here follows the default packet rules."
+  purpose: "Restrict specific applications to specific destinations — for example, allow only the backup agent to connect to the backup server."
+  added_in_version: "12.0"

@@ -1,0 +1,24 @@
+policy: MAIN
+seed_rows:
+  malware_exclusions:
+  - name: AllRemoteMounted
+    file_or_folder: AllRemoteMounted
+    object_name: ''
+    component: Защита от файловых угроз; Защита от шифрования
+  - name: Mounted:SMB
+    file_or_folder: Mounted:SMB
+    object_name: ''
+    component: Защита от файловых угроз; Защита от шифрования
+  attachment_types:
+  - mask: '*.cmd'
+  - mask: '*.com'
+  - mask: '*.exe'
+  - mask: '*.js'
+  - mask: '*.jse'
+  - mask: '*.msi'
+  - mask: '*.scr'
+  - mask: '*.vbe'
+  - mask: '*.vbs'
+  - mask: '*.sh'
+  trusted_ips:
+  - ip: 172.16.100.0/24

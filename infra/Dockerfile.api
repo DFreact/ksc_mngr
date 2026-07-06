@@ -1,0 +1,58 @@
+# Build stage
+FROM node:20-alpine AS builder
+
+# Install pnpm
+RUN npm install -g pnpm@9 --prefer-offline || npm install -g pnpm@9
+
+WORKDIR /app
+
+# Copy manifests first for layer caching
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* ./
+COPY packages/db/package.json packages/db/
+COPY packages/domain/package.json packages/domain/
+COPY apps/api/package.json apps/api/
+
+# Install all deps (offline-capable when node_modules layer is cached)
+RUN pnpm install --frozen-lockfile
+
+# Copy source
+COPY packages/db/ packages/db/
+COPY packages/domain/ packages/domain/
+COPY apps/api/ apps/api/
+COPY tsconfig.json ./
+
+# Generate Prisma client
+RUN pnpm --filter @ksc/db generate
+
+# Build
+RUN pnpm --filter @ksc/domain build
+RUN pnpm --filter @ksc/api build
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Runtime stage — minimal image
+FROM node:20-alpine AS runtime
+
+RUN npm install -g pnpm@9 --prefer-offline || npm install -g pnpm@9
+
+WORKDIR /app
+
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* ./
+COPY packages/db/package.json packages/db/
+COPY packages/domain/package.json packages/domain/
+COPY apps/api/package.json apps/api/
+
+# Production deps only
+RUN pnpm install --frozen-lockfile --prod
+
+# Copy built artifacts
+COPY --from=builder /app/packages/db/dist packages/db/dist
+COPY --from=builder /app/packages/db/node_modules/.prisma packages/db/node_modules/.prisma
+COPY --from=builder /app/packages/domain/dist packages/domain/dist
+COPY --from=builder /app/apps/api/dist apps/api/dist
+
+# Prisma schema (needed for migrations at runtime)
+COPY packages/db/prisma/ packages/db/prisma/
+
+EXPOSE 3001
+
+CMD ["node", "apps/api/dist/index.js"]

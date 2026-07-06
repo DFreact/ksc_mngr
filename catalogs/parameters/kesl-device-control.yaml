@@ -1,0 +1,101 @@
+# KESL 12.1 — Device Control
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Device Control"
+  name: "Enabled"
+  value_type: bool
+  default_value: false
+  description: "Enable control over access to removable devices (USB storage, optical drives, external HDDs, card readers)."
+  purpose: "Blocks the primary physical vector for data exfiltration and introducing infected media into the network."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Eliminates the USB infection and exfiltration vector — critical for high-security environments and PCI-DSS scope."
+    - "Granular trusted-device list allows approved tokens (hardware keys, company-issued drives) while blocking everything else."
+  tradeoffs_cons:
+    - "First rollout without a pre-approved device list will block all USB storage, including legitimate hardware tokens and company devices. Plan the trusted list before enabling."
+    - "Requires process for users to submit new devices for approval — adds operational overhead."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Device Control"
+  name: "Default device access"
+  value_type: enum
+  enum_options:
+    - "Allow"
+    - "Block"
+    - "Read-only"
+  default_value: "Allow"
+  description: "Default access level for removable devices not in the trusted device list."
+  purpose: "Set the default stance. 'Block' is recommended for high-security environments; 'Read-only' is a reasonable middle ground that prevents data exfiltration while allowing data import."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "'Block' is the strongest posture — no unauthorised device can read or write."
+    - "'Read-only' prevents data exfiltration while allowing users to import files from approved sources."
+  tradeoffs_cons:
+    - "'Allow' defeats the purpose of Device Control — use only in audit mode (Enabled = true, Default = Allow) to inventory what devices are in use before switching to Block."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Device Control"
+  name: "Trusted devices"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "device_id"
+        label: "Device ID / mask"
+        type: string
+      - key: "device_type"
+        label: "Device type"
+        type: enum
+        options: ["USB storage", "Optical drive", "Floppy drive", "Printer", "MTP device", "Card reader", "Any"]
+      - key: "access"
+        label: "Access level"
+        type: enum
+        options: ["Allow", "Block", "Read-only"]
+      - key: "users"
+        label: "Users (blank = all)"
+        type: string
+      - key: "comment"
+        label: "Asset tag / justification"
+        type: string
+  description: "Explicit access rules for known devices by hardware ID or mask. These rules override the default access setting."
+  purpose: "Maintain an approved hardware inventory: company-issued USB drives, hardware security tokens (YubiKey), approved optical media."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Device Control"
+  name: "Log all device events"
+  value_type: bool
+  default_value: true
+  description: "Record an event for every device connection and access attempt, including allowed connections."
+  purpose: "Visibility into all removable device usage — essential for DLP audits and forensic investigation."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Full audit trail of who connected what device and when — valuable for incident investigation."
+  tradeoffs_cons:
+    - "On a large fleet with frequent USB connections, generates significant event volume. Filter in KSC reporting to avoid noise."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Device Control"
+  name: "Control printers"
+  value_type: bool
+  default_value: false
+  description: "Apply device control policy to USB-connected printers (allow, block, or read-only)."
+  purpose: "Some compliance frameworks require controlling print output as a data exfiltration channel."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Device Control"
+  name: "Control MTP devices"
+  value_type: bool
+  default_value: true
+  description: "Apply device control policy to MTP devices (smartphones, tablets connecting via Android MTP protocol)."
+  purpose: "Mobile phones with MTP access can copy files silently — controlling MTP prevents data exfiltration via personal phones."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Prevents employees from copying data to personal phones, which bypass corporate network controls."
+  tradeoffs_cons:
+    - "Blocks legitimate use cases (charging cables may register as MTP on some devices). Test before wide rollout."

@@ -1,0 +1,55 @@
+version: "3.9"
+
+# ─── Local development compose ───────���────────────────────────────────────────
+# Production deployment uses pre-built images (docker save / docker load).
+# No outbound internet access is required at runtime.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ksc
+      POSTGRES_PASSWORD: ksc_dev_pw
+      POSTGRES_DB: ksc_mgmt
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ksc -d ksc_mgmt"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://ksc:ksc_dev_pw@postgres:5432/ksc_mgmt
+      PORT: 3001
+      WEB_ORIGIN: http://localhost:5173
+      NODE_ENV: development
+    ports:
+      - "3001:3001"
+    # For local dev without Docker: run `pnpm dev` in apps/api directly
+
+  web:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.web
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+    environment:
+      VITE_API_URL: http://api:3001
+
+volumes:
+  postgres_data:

@@ -1,0 +1,41 @@
+- criteria_key: app_installed
+  group: application
+  value_type: string
+  operator_options: [equals, not_equals, contains]
+  description: Установлено приложение (имя)
+
+- criteria_key: app_version
+  group: application
+  value_type: string
+  operator_options: [equals, not_equals, greater_than, less_than]
+  description: Версия установленного приложения
+
+- criteria_key: kesl_installed
+  group: application
+  value_type: bool
+  operator_options: [equals]
+  description: Установлен Kaspersky Endpoint Security для Linux
+
+- criteria_key: agent_installed
+  group: application
+  value_type: bool
+  operator_options: [equals]
+  description: Установлен Агент администрирования
+
+- criteria_key: agent_version
+  group: application
+  value_type: string
+  operator_options: [equals, not_equals, greater_than, less_than]
+  description: Версия агента администрирования
+
+- criteria_key: os_type
+  group: application
+  value_type: enum
+  operator_options: [equals, not_equals]
+  description: Тип операционной системы (linux, windows, macos)
+
+- criteria_key: os_version
+  group: application
+  value_type: string
+  operator_options: [equals, not_equals, contains, starts_with]
+  description: Версия операционной системы

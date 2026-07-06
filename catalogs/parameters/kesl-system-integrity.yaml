@@ -1,0 +1,114 @@
+# KESL 12.1 — System Integrity Check (SIC / File Integrity Monitoring)
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "System Integrity Check"
+  name: "Enabled"
+  value_type: bool
+  default_value: false
+  description: "Monitor specified directories and files for unauthorised changes (hash-based file integrity monitoring)."
+  purpose: "Detects persistence mechanisms, rootkit installation, and configuration tampering by comparing current file hashes against a trusted baseline."
+  added_in_version: "12.1"
+  tradeoffs_pros:
+    - "Catches post-compromise activity: attackers modifying /etc/sudoers, /etc/crontab, SSH authorized_keys, or system binaries."
+    - "Required by PCI-DSS Requirement 11.5, ISO 27001 A.12.5, and many other compliance frameworks."
+    - "Detects rootkits that modify kernel modules or system binaries."
+  tradeoffs_cons:
+    - "Requires a trusted baseline — if baseline is captured after compromise, violations will not be detected."
+    - "High monitoring scope generates many events during legitimate operations (package updates, config management). Scope must be carefully tuned."
+    - "Disabled by default because it requires site-specific scope configuration to be useful."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "System Integrity Check"
+  name: "Monitoring scope"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "path"
+        label: "Path to monitor"
+        type: string
+      - key: "recursive"
+        label: "Monitor subdirectories"
+        type: bool
+      - key: "file_mask"
+        label: "File mask (blank = all)"
+        type: string
+      - key: "comment"
+        label: "Comment"
+        type: string
+  description: "List of directories and files to include in integrity monitoring."
+  purpose: "Define which files constitute the 'trusted baseline'. Common targets: /etc, /bin, /sbin, /usr/bin, /boot, /lib/modules, cron files, SSH keys."
+  added_in_version: "12.1"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "System Integrity Check"
+  name: "Exclusions"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "path"
+        label: "Path to exclude"
+        type: string
+      - key: "file_mask"
+        label: "File mask"
+        type: string
+      - key: "comment"
+        label: "Justification"
+        type: string
+  description: "Paths excluded from integrity monitoring within the monitoring scope."
+  purpose: "Suppress noise from known-dynamic files: /etc/mtab, /var/run/utmp, application log files within /etc subdirectories."
+  added_in_version: "12.1"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "System Integrity Check"
+  name: "Action on violation"
+  value_type: enum
+  enum_options:
+    - "Notify"
+    - "Terminate process"
+  default_value: "Notify"
+  description: "Action taken when a monitored file is found to have changed compared to the baseline."
+  added_in_version: "12.1"
+  tradeoffs_pros:
+    - "'Notify' is safe for initial deployment — you understand the change pattern before taking automated action."
+    - "'Terminate process' can stop an attacker actively modifying system files, but may terminate legitimate processes (e.g., package manager) that are making intended changes."
+  tradeoffs_cons:
+    - "'Notify' only leaves the changed file in place — the attacker's modification persists until manually remediated."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "System Integrity Check"
+  name: "Baseline update mode"
+  value_type: enum
+  enum_options:
+    - "Manual"
+    - "After scan"
+    - "After database update"
+  default_value: "Manual"
+  description: "When to automatically update the trusted baseline with the current file state."
+  purpose: "After a planned software update, the baseline must be refreshed so that legitimate changes do not generate alerts."
+  added_in_version: "12.1"
+  tradeoffs_pros:
+    - "'Manual' gives maximum control — the baseline is only updated when explicitly approved via Change Management."
+    - "'After database update' is convenient for Ansible/package-manager-managed systems."
+  tradeoffs_cons:
+    - "'After scan' auto-approves all current changes — if triggered while under attack, the attacker's modifications become the new baseline."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "System Integrity Check"
+  name: "Hash algorithm"
+  value_type: enum
+  enum_options:
+    - "MD5"
+    - "SHA-256"
+  default_value: "SHA-256"
+  description: "Cryptographic algorithm used to compute file hashes for the integrity baseline."
+  added_in_version: "12.1"
+  tradeoffs_pros:
+    - "SHA-256 is cryptographically secure — collision attacks are not computationally feasible."
+    - "MD5 is faster to compute but has known collision vulnerabilities; only use if performance is a critical constraint."
+  tradeoffs_cons:
+    - "SHA-256 increases scan time for large files compared to MD5. On systems with millions of monitored files this difference accumulates."

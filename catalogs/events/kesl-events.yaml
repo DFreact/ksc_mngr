@@ -1,0 +1,529 @@
+# KESL 12.1 — Complete Events Catalog
+
+# ─── File Threat Protection ───────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "File Threat Protection"
+  name: "Malicious object detected"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 30
+  description: "A malicious object was found during real-time file scanning and could not be automatically disinfected or was blocked."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "File Threat Protection"
+  name: "Malicious object disinfected"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 30
+  description: "A malicious object was successfully disinfected and the clean file remains accessible."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "File Threat Protection"
+  name: "Malicious object deleted"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 30
+  description: "A malicious object was deleted after disinfection failed."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "File Threat Protection"
+  name: "Object not disinfected"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 30
+  description: "A malicious object was detected but could not be disinfected, deleted, or blocked due to an error."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "File Threat Protection"
+  name: "File scan timeout exceeded"
+  severity: warning
+  available_channels: [syslog, os-log-local]
+  default_storage_days: 14
+  description: "Scanning a file exceeded the configured timeout and the file was skipped. The file was not checked for threats."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "File Threat Protection"
+  name: "Protection component disabled"
+  severity: functional_failure
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 30
+  description: "File Threat Protection component was disabled — either by policy, user action, or an error."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "File Threat Protection"
+  name: "Protection component error"
+  severity: functional_failure
+  available_channels: [email, syslog, snmp, os-log-local]
+  default_storage_days: 30
+  description: "File Threat Protection encountered an internal error and may not be functioning correctly."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "File Threat Protection"
+  name: "Scan of password-protected archive"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 7
+  description: "A password-protected archive was accessed. Contents could not be scanned. The event provides an audit trail."
+
+# ─── Web Threat Protection ────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Web Threat Protection"
+  name: "Malicious URL blocked"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 30
+  description: "Access to a URL identified as malicious was blocked by Web Threat Protection."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Web Threat Protection"
+  name: "Phishing URL blocked"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 30
+  description: "Access to a phishing URL was blocked. The URL is in the Kaspersky phishing database."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Web Threat Protection"
+  name: "Malicious web object detected in downloaded file"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 30
+  description: "A malicious object was found in a file being downloaded via HTTP/HTTPS and was blocked."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Web Threat Protection"
+  name: "Web Threat Protection disabled"
+  severity: functional_failure
+  available_channels: [email, syslog, snmp, os-log-local]
+  default_storage_days: 30
+  description: "Web Threat Protection component is disabled or encountered an error."
+
+# ─── Network Threat Protection ────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Network Threat Protection"
+  name: "Network attack detected"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 30
+  description: "An incoming network packet matched a known attack signature (exploit attempt, SYN flood, port scan)."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Network Threat Protection"
+  name: "Attacking host blocked"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 30
+  description: "The IP address of a detected attacker was automatically added to the block list."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Network Threat Protection"
+  name: "Attacking host unblocked"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 7
+  description: "A previously blocked host was removed from the block list after the configured block duration expired."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Network Threat Protection"
+  name: "Network Threat Protection disabled"
+  severity: functional_failure
+  available_channels: [email, syslog, snmp, os-log-local]
+  default_storage_days: 30
+  description: "Network Threat Protection (IDS) component was disabled or encountered an error."
+
+# ─── Anti-Cryptor ────────────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Anti-Cryptor"
+  name: "Mass encryption detected"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 30
+  description: "Ransomware-style mass encryption pattern detected on a monitored network share."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Anti-Cryptor"
+  name: "Mass encryption blocked"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 30
+  description: "The source of mass encryption was blocked — network access from the attacking IP was cut off."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Anti-Cryptor"
+  name: "Anti-Cryptor disabled"
+  severity: functional_failure
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 30
+  description: "Anti-Cryptor component was disabled. Network shares are no longer protected against ransomware."
+
+# ─── Device Control ───────────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Device Control"
+  name: "Removable device connected"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 14
+  description: "A removable device was connected. Access was granted (trusted device or default Allow policy)."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Device Control"
+  name: "Device access blocked"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 30
+  description: "A removable device connection was blocked — the device is not in the trusted list and default access is Block."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Device Control"
+  name: "Device access set to read-only"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 14
+  description: "A removable device was granted read-only access per policy (not in trusted list; default is Read-only)."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Device Control"
+  name: "Device Control disabled"
+  severity: functional_failure
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 30
+  description: "Device Control component was disabled. Removable devices are no longer controlled."
+
+# ─── Application Control ─────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Application Control"
+  name: "Application launch blocked"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 30
+  description: "An application launch was blocked because the executable is not in the allowlist or is in the denylist."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Application Control"
+  name: "Application launch allowed in learning mode"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 7
+  description: "Application Control is in learning mode — this launch would have been blocked in Denylist/Allowlist mode."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Application Control"
+  name: "Application Control disabled"
+  severity: functional_failure
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 30
+  description: "Application Control component was disabled. Application launch restrictions are no longer enforced."
+
+# ─── Behavior Detection ──────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Behavior Detection"
+  name: "Harmful activity detected"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 30
+  description: "A running process exhibited behavior matching a Behavior Stream Signature (BSS) for malicious activity."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Behavior Detection"
+  name: "Harmful activity blocked and rolled back"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 30
+  description: "A process exhibiting harmful behavior was terminated and its changes to the filesystem were rolled back."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Behavior Detection"
+  name: "Rollback not possible"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local]
+  default_storage_days: 30
+  description: "A process was blocked for harmful behavior but its file system changes could not be rolled back. Manual remediation required."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Behavior Detection"
+  name: "Behavior Detection disabled"
+  severity: functional_failure
+  available_channels: [email, syslog, snmp, os-log-local]
+  default_storage_days: 30
+  description: "Behavior Detection component was disabled. Runtime behavioral protection is no longer active."
+
+# ─── System Integrity Check ──────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "System Integrity Check"
+  name: "File integrity violation detected"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 90
+  description: "A monitored file or directory was modified, added, or deleted compared to the trusted baseline."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "System Integrity Check"
+  name: "Integrity scan completed"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 14
+  description: "A System Integrity Check scan completed. Results are available in the KSC report."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "System Integrity Check"
+  name: "Integrity scan error"
+  severity: functional_failure
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 30
+  description: "System Integrity Check scan encountered an error and could not complete."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "System Integrity Check"
+  name: "Baseline updated"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 30
+  description: "The System Integrity Check trusted baseline was updated. Subsequent scans compare against the new baseline."
+
+# ─── Container Scan ──────────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Container Scan"
+  name: "Malicious object found in container image"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 30
+  description: "A malicious object was found during scanning of a container image."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Container Scan"
+  name: "Container launch blocked"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 30
+  description: "A container was prevented from launching because its image contains a malicious object."
+
+# ─── Updates ─────────────────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Updates"
+  name: "Databases updated successfully"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 7
+  description: "Antivirus databases were updated to the latest version."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Updates"
+  name: "Databases out of date"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 7
+  description: "Antivirus databases have not been updated within the configured threshold period."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Updates"
+  name: "Databases update error"
+  severity: functional_failure
+  available_channels: [email, syslog, snmp, os-log-local]
+  default_storage_days: 14
+  description: "Antivirus database update failed. The host may be running outdated databases."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Updates"
+  name: "Databases rollback performed"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 14
+  description: "Antivirus databases were rolled back to the previous version after an update error."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "Updates"
+  name: "Databases critically out of date"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 14
+  description: "Antivirus databases are critically outdated (exceeded the critical threshold). Protection quality is severely degraded."
+
+# ─── License ─────────────────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "License"
+  name: "License expires in 30 days"
+  severity: warning
+  available_channels: [email, os-log-local]
+  default_storage_days: 30
+  description: "The KESL license will expire in 30 days. Renew the license to avoid service interruption."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "License"
+  name: "License expires in 7 days"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 14
+  description: "The KESL license expires in 7 days. Immediate license renewal is required."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "License"
+  name: "License expired"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 90
+  description: "The KESL license has expired. The application is operating in limited mode — database updates are stopped."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "License"
+  name: "License not found"
+  severity: functional_failure
+  available_channels: [email, syslog, snmp, os-log-local]
+  default_storage_days: 30
+  description: "KESL cannot find a valid license key. The application is running without a license in limited functionality mode."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "License"
+  name: "License key added"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 90
+  description: "A new license key was successfully added or activated."
+
+# ─── General / Protection ────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "General"
+  name: "Application started"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 7
+  description: "KESL application started and all protection components are initialised."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "General"
+  name: "Application stopped"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 30
+  description: "KESL application was stopped. All real-time protection is inactive until it restarts."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "General"
+  name: "Protection paused by user"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 30
+  description: "Real-time protection was temporarily paused by the local user."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "General"
+  name: "Protection resumed"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 7
+  description: "Real-time protection was resumed after being paused."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "General"
+  name: "Virus outbreak"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 90
+  description: "The number of malware detections exceeded the virus outbreak threshold within the configured time window."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "General"
+  name: "Self-defense triggered"
+  severity: critical
+  available_channels: [email, syslog, snmp, os-log-local, os-log-server]
+  default_storage_days: 90
+  description: "An attempt to tamper with KESL processes, files, or memory was detected and blocked by Self-defense."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "General"
+  name: "Settings changed"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 90
+  description: "KESL settings were modified. If the change was not expected, investigate immediately."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "General"
+  name: "On-demand scan completed"
+  severity: informational
+  available_channels: [os-log-local]
+  default_storage_days: 7
+  description: "A scheduled or manual on-demand scan task completed. Results available in the KSC task report."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "General"
+  name: "On-demand scan error"
+  severity: functional_failure
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 14
+  description: "An on-demand scan task failed to complete due to an error."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  component: "General"
+  name: "KSN connection error"
+  severity: warning
+  available_channels: [email, syslog, os-log-local]
+  default_storage_days: 14
+  description: "KESL cannot connect to the KSN proxy. Cloud reputation lookups are unavailable until connectivity is restored."

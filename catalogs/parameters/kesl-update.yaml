@@ -1,0 +1,95 @@
+# KESL 12.1 — Database Update task settings
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Update"
+  name: "Primary update source"
+  value_type: enum
+  enum_options:
+    - "Administration Server"
+    - "Kaspersky update servers"
+    - "Custom path"
+  default_value: "Administration Server"
+  description: "Primary source from which KESL downloads antivirus database updates."
+  purpose: "In isolated networks, the Administration Server acts as the sole update source — it downloads from Kaspersky and distributes internally."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "'Administration Server' ensures no endpoint contacts the internet directly — compliant with network isolation requirements."
+    - "Update traffic is centralised and auditable."
+  tradeoffs_cons:
+    - "If the Administration Server is unavailable, all endpoints stop receiving updates until connectivity is restored. Set up a Distribution Point as backup."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Update"
+  name: "Additional update sources"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "url"
+        label: "Source URL or local path"
+        type: string
+      - key: "enabled"
+        label: "Enabled"
+        type: bool
+      - key: "comment"
+        label: "Comment"
+        type: string
+  description: "Fallback update sources used if the primary source fails."
+  purpose: "Configure distribution points or local mirrors as fallback sources for resilience."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Update"
+  name: "Rollback databases on update failure"
+  value_type: bool
+  default_value: false
+  description: "Automatically revert to the previous database version if the update causes detection errors or application instability."
+  purpose: "Protects against rare cases where a new database version produces widespread false positives or breaks scanning."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Automatic recovery from a bad database release without manual intervention."
+  tradeoffs_cons:
+    - "Rolled-back databases may be hours or days old — temporary reduction in detection capability."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Update"
+  name: "Copy updates to local folder"
+  value_type: bool
+  default_value: false
+  description: "Save downloaded updates to a local directory so other tools (distribution points, offline endpoints) can access them."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Update"
+  name: "Local folder for updates"
+  value_type: string
+  description: "Path to the local directory where downloaded updates are stored."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Update"
+  name: "Run missed scheduled updates"
+  value_type: bool
+  default_value: true
+  description: "Run the update task immediately after the next startup if a scheduled update was missed (e.g., the host was offline)."
+  purpose: "Ensures endpoints that were offline during their scheduled update window catch up as soon as they reconnect."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Update"
+  name: "Randomise update start (minutes)"
+  value_type: number
+  unit: "minutes"
+  default_value: 0
+  description: "Spread update task start times by a random offset up to this value. Use to prevent all endpoints updating simultaneously."
+  purpose: "Prevents Administration Server from receiving update requests from all endpoints at exactly the same scheduled time."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Critical for large deployments — without randomisation, all endpoints hit the server simultaneously, causing a traffic spike and potential update failures."
+  tradeoffs_cons:
+    - "Some endpoints will receive updates later than others. For most environments, a 30-60 minute spread is acceptable."

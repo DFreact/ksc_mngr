@@ -1,0 +1,47 @@
+- criteria_key: protection_status
+  group: protection
+  value_type: enum
+  operator_options: [equals, not_equals]
+  description: Статус защиты устройства (ok, warning, critical, unprotected)
+
+- criteria_key: real_time_protection
+  group: protection
+  value_type: bool
+  operator_options: [equals]
+  description: Файловая защита в реальном времени включена
+
+- criteria_key: databases_up_to_date
+  group: protection
+  value_type: bool
+  operator_options: [equals]
+  description: Базы антивируса актуальны
+
+- criteria_key: last_scan_days_ago
+  group: protection
+  value_type: number
+  operator_options: [less_than, greater_than, equals]
+  description: Сколько дней назад выполнялось последнее сканирование
+
+- criteria_key: last_connected_days_ago
+  group: protection
+  value_type: number
+  operator_options: [less_than, greater_than, equals]
+  description: Сколько дней назад устройство подключалось к серверу
+
+- criteria_key: threats_detected
+  group: protection
+  value_type: bool
+  operator_options: [equals]
+  description: Обнаружены угрозы, требующие обработки
+
+- criteria_key: encryption_status
+  group: protection
+  value_type: enum
+  operator_options: [equals, not_equals]
+  description: Статус шифрования диска (encrypted, not_encrypted, error)
+
+- criteria_key: firewall_enabled
+  group: protection
+  value_type: bool
+  operator_options: [equals]
+  description: Сетевой экран включён

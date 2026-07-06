@@ -1,0 +1,107 @@
+# KESL 12.1 — Application Control
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Application Control"
+  name: "Enabled"
+  value_type: bool
+  default_value: false
+  description: "Enable application launch control — allows or blocks process execution based on rules."
+  purpose: "Implements application whitelisting or blacklisting at the kernel level. Prevents unauthorised executables from running."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Allowlist mode is one of the strongest controls against unknown malware — if a binary is not in the list, it cannot run."
+    - "Denylist mode blocks known bad applications (crypto miners, unapproved remote access tools) while permitting everything else."
+  tradeoffs_cons:
+    - "Allowlist mode requires a complete, maintained inventory of all legitimate executables — significant operational overhead for dynamic environments (CI/CD pipelines, development workstations)."
+    - "Any gaps in the allowlist will cause legitimate software to fail silently or with cryptic errors."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Application Control"
+  name: "Mode"
+  value_type: enum
+  enum_options:
+    - "Denylist"
+    - "Allowlist"
+    - "Learning mode"
+  default_value: "Denylist"
+  description: "Operating mode: Denylist blocks specific applications; Allowlist blocks everything not explicitly allowed; Learning mode logs what would be blocked without actually blocking."
+  purpose: "Use 'Learning mode' first to understand the application landscape before switching to 'Allowlist'."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "'Allowlist' is the most secure posture — unknown executables cannot run."
+    - "'Learning mode' provides a safe way to build an initial allowlist from observed real-world usage."
+  tradeoffs_cons:
+    - "'Denylist' requires constant maintenance as new malware tools emerge — it is inherently reactive."
+    - "'Allowlist' in a dev environment will block every new build until it is approved — use exclusion scopes for dev workstations."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Application Control"
+  name: "Allow applications with valid digital signature"
+  value_type: bool
+  default_value: true
+  description: "Automatically permit execution of applications signed with a trusted digital certificate, even if not explicitly in the allowlist."
+  purpose: "Reduces allowlist maintenance burden for signed vendor software while maintaining control over unsigned binaries."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Significantly reduces the number of rules needed — all software from trusted vendors is automatically permitted."
+  tradeoffs_cons:
+    - "A compromised or stolen code-signing certificate bypasses this control entirely. Supplement with certificate revocation list checks."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Application Control"
+  name: "Allow KDE system components"
+  value_type: bool
+  default_value: true
+  description: "Automatically allow execution of standard KDE desktop environment components."
+  purpose: "Prevents Application Control from blocking the desktop environment on KDE-based Linux distributions."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Application Control"
+  name: "Allow GNOME system components"
+  value_type: bool
+  default_value: true
+  description: "Automatically allow execution of standard GNOME desktop environment components."
+  purpose: "Prevents Application Control from blocking the desktop environment on GNOME-based Linux distributions."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Application Control"
+  name: "Application control rules"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "path"
+        label: "Application path / mask"
+        type: string
+      - key: "action"
+        label: "Action"
+        type: enum
+        options: ["Allow", "Block", "Block with notification"]
+      - key: "users"
+        label: "Users (blank = all)"
+        type: string
+      - key: "groups"
+        label: "User groups (blank = all)"
+        type: string
+      - key: "comment"
+        label: "Comment"
+        type: string
+  description: "List of application path rules with per-user/group scope. Rules are evaluated top to bottom; first match wins."
+  purpose: "Define explicit allow/deny rules for specific executables or directories. Use wildcards for flexible path matching."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Application Control"
+  name: "Log blocked launch attempts"
+  value_type: bool
+  default_value: true
+  description: "Record an event in the KSC database every time an application launch is blocked by Application Control."
+  purpose: "Visibility into what is being blocked — essential for tuning rules and investigating incidents."
+  added_in_version: "12.0"

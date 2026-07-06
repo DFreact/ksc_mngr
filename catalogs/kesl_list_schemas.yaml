@@ -1,0 +1,140 @@
+list_types:
+- id: protection_scope
+  name: Область защиты
+  component: Защита от файловых угроз
+  columns:
+  - key: scope
+    label: Область защиты
+    type: string
+  - key: status
+    label: Статус
+    type: enum
+    options:
+    - Включено
+    - Выключено
+- id: malware_exclusions
+  name: Исключения из поиска вредоносного ПО
+  component: Защита от файловых угроз
+  columns:
+  - key: name
+    label: Имя исключения
+    type: string
+  - key: file_or_folder
+    label: Файл или папка
+    type: string
+  - key: object_name
+    label: Имя объекта
+    type: string
+  - key: component
+    label: Компонент защиты
+    type: string
+- id: trusted_apps
+  name: Доверенные приложения
+  component: Анализ поведения
+  columns:
+  - key: application
+    label: Приложение
+    type: string
+  - key: path
+    label: Путь
+    type: string
+  - key: comment
+    label: Комментарий
+    type: string
+- id: attachment_types
+  name: Типы вложений
+  component: Защита от почтовых угроз
+  columns:
+  - key: status
+    label: Статус
+    type: enum
+    options:
+    - Включен
+    - Выключен
+  - key: mask
+    label: Маска файла вложения
+    type: string
+- id: trusted_urls
+  name: Доверенные веб-адреса
+  component: Защита от веб-угроз
+  columns:
+  - key: url
+    label: Веб-адрес
+    type: string
+- id: trusted_ips
+  name: Доверенные IP-адреса
+  component: Защита от сетевых угроз
+  columns:
+  - key: ip
+    label: IP-адрес
+    type: string
+- id: network_packet_rules
+  name: Сетевые пакетные правила
+  component: Сетевой экран
+  columns:
+  - key: priority
+    label: Приоритет
+    type: string
+  - key: rule
+    label: Сетевое правило
+    type: string
+  - key: action
+    label: Действие
+    type: enum
+    options:
+    - Разрешить
+    - Запретить
+  - key: address
+    label: Адрес
+    type: string
+  - key: source
+    label: Источник
+    type: string
+- id: available_networks
+  name: Доступные сети
+  component: Сетевой экран
+  columns:
+  - key: name
+    label: Имя
+    type: string
+  - key: net_type
+    label: Тип сети
+    type: string
+  - key: ip
+    label: IP-адрес
+    type: string
+- id: trusted_devices
+  name: Доверенные устройства
+  component: Контроль устройств
+  columns:
+  - key: device_name
+    label: Имя устройства
+    type: string
+  - key: device_type
+    label: Тип устройства
+    type: string
+  - key: device_model
+    label: Модель устройства
+    type: string
+  - key: device_id
+    label: Идентификатор устройства
+    type: string
+  - key: user_or_group
+    label: Пользователь или группа
+    type: string
+  - key: comment
+    label: Комментарий
+    type: string
+- id: message_templates
+  name: Шаблоны сообщений
+  component: Веб-Контроль
+  columns:
+  - key: attention
+    label: Внимание
+    type: text
+  - key: block_message
+    label: Сообщение о блокировке
+    type: text
+  - key: admin_message
+    label: Сообщение администратору
+    type: text

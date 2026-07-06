@@ -1,0 +1,29 @@
+- criteria_key: ad_ou
+  group: ad
+  value_type: string
+  operator_options: [equals, not_equals, contains, starts_with]
+  description: Организационная единица (OU) в Active Directory или Samba
+
+- criteria_key: ad_group
+  group: ad
+  value_type: string
+  operator_options: [equals, not_equals, member_of, not_member_of]
+  description: Группа безопасности Active Directory
+
+- criteria_key: ad_domain
+  group: ad
+  value_type: string
+  operator_options: [equals, not_equals]
+  description: Домен Active Directory
+
+- criteria_key: ad_site
+  group: ad
+  value_type: string
+  operator_options: [equals, not_equals]
+  description: Сайт Active Directory
+
+- criteria_key: in_domain
+  group: ad
+  value_type: bool
+  operator_options: [equals]
+  description: Устройство состоит в домене

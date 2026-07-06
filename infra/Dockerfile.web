@@ -1,0 +1,35 @@
+# Build stage
+FROM node:20-alpine AS builder
+
+RUN npm install -g pnpm@9 --prefer-offline || npm install -g pnpm@9
+
+WORKDIR /app
+
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* ./
+COPY packages/db/package.json packages/db/
+COPY packages/domain/package.json packages/domain/
+COPY apps/api/package.json apps/api/
+COPY apps/web/package.json apps/web/
+
+RUN pnpm install --frozen-lockfile
+
+COPY packages/db/ packages/db/
+COPY packages/domain/ packages/domain/
+COPY apps/api/ apps/api/
+COPY apps/web/ apps/web/
+COPY tsconfig.json ./
+
+RUN pnpm --filter @ksc/db generate
+RUN pnpm --filter @ksc/domain build
+RUN pnpm --filter @ksc/web build
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Runtime stage — static files served by nginx
+FROM nginx:alpine AS runtime
+
+COPY infra/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/apps/web/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

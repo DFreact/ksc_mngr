@@ -1,0 +1,492 @@
+- id: не_удалось_восстановить_файл_sudoers_до_референсного_значени_2
+  application: network_agent
+  name: Не удалось восстановить файл sudoers до референсного значения.
+  severity: Отказ функционирования
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: не_удалось_удалить_корневые_сертификаты_3
+  application: network_agent
+  name: Не удалось удалить корневые сертификаты.
+  severity: Отказ функционирования
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: не_удалось_установить_корневые_сертификаты_4
+  application: network_agent
+  name: Не удалось установить корневые сертификаты.
+  severity: Отказ функционирования
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: не_удалось_установить_обновление_стороннего_производителя_5
+  application: network_agent
+  name: Не удалось установить обновление стороннего производителя.
+  severity: Отказ функционирования
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: не_удалось_установить_обновления_центра_обновления_windows_6
+  application: network_agent
+  name: Не удалось установить обновления Центра обновления Windows.
+  severity: Отказ функционирования
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: ошибка_при_установке_обновления_7
+  application: network_agent
+  name: Ошибка при установке обновления.
+  severity: Отказ функционирования
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: управление_учетными_записями_ошибки_8
+  application: network_agent
+  name: 'Управление учетными записями: ошибки'
+  severity: Отказ функционирования
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: возвращено_предупреждение_во_время_установки_обновления_моду_9
+  application: network_agent
+  name: Возвращено предупреждение во время установки обновления модулей приложений.
+  severity: Предупреждение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: обнаружен_файл_sudoers_который_не_соответствует_референсному_10
+  application: network_agent
+  name: Обнаружен файл sudoers, который не соответствует референсному значению.
+  severity: Предупреждение
+  default_storage_days: 30
+  channels:
+    email: true
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: true
+- id: произошла_проблема_безопасности_11
+  application: network_agent
+  name: Произошла проблема безопасности.
+  severity: Предупреждение
+  default_storage_days: 30
+  channels:
+    email: true
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: прокси_сервер_ksn_был_запущен_не_удалось_проверить_доступнос_12
+  application: network_agent
+  name: Прокси-сервер KSN был запущен; не удалось проверить доступность KSN.
+  severity: Предупреждение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: управление_учетными_записями_предупреждения_13
+  application: network_agent
+  name: 'Управление учетными записями: предупреждения'
+  severity: Предупреждение
+  default_storage_days: 30
+  channels:
+    email: true
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: установка_обновления_стороннего_по_завершена_с_предупреждени_14
+  application: network_agent
+  name: Установка обновления стороннего ПО завершена с предупреждением.
+  severity: Предупреждение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: установка_обновления_стороннего_программного_обеспечения_отл_15
+  application: network_agent
+  name: Установка обновления стороннего программного обеспечения отложена.
+  severity: Предупреждение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: веб_сервер_запущен_на_устройстве_16
+  application: network_agent
+  name: Веб-сервер запущен на устройстве.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: true
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: веб_сервер_остановлен_на_устройстве_17
+  application: network_agent
+  name: Веб-сервер остановлен на устройстве.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: true
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: запущена_установка_обновления_модулей_приложений_для_програм_18
+  application: network_agent
+  name: Запущена установка обновления модулей приложений для программного обеспечения.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: запущена_установка_обновления_стороннего_по_19
+  application: network_agent
+  name: Запущена установка обновления стороннего ПО.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: корневой_сертификат_установлен_20
+  application: network_agent
+  name: Корневой сертификат установлен.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: корневые_сертификаты_удалены_21
+  application: network_agent
+  name: Корневые сертификаты удалены.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: новое_устройство_добавлено_22
+  application: network_agent
+  name: Новое устройство добавлено.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: true
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: обнаружено_устройство_23
+  application: network_agent
+  name: Обнаружено устройство.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: обновление_для_приложений_стороннего_производителя_установле_24
+  application: network_agent
+  name: Обновление для приложений стороннего производителя установлено успешно.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: обновление_модулей_приложений_успешно_установлено_25
+  application: network_agent
+  name: Обновление модулей приложений успешно установлено.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: получен_сертификат_для_https_порта_веб_сервера_26
+  application: network_agent
+  name: Получен сертификат для HTTPS-порта Веб-сервера.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: приложение_удалено_27
+  application: network_agent
+  name: Приложение удалено.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: true
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: прокси_сервер_ksn_был_запущен_проверка_доступности_ksn_прошл_28
+  application: network_agent
+  name: Прокси-сервер KSN был запущен; проверка доступности KSN прошла успешно.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: прокси_сервер_ksn_остановлен_29
+  application: network_agent
+  name: Прокси-сервер KSN остановлен.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: совместный_доступ_к_рабочему_столу_windows_завершен_30
+  application: network_agent
+  name: 'Совместный доступ к рабочему столу Windows: завершен.'
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: совместный_доступ_к_рабочему_столу_windows_предоставлен_31
+  application: network_agent
+  name: 'Совместный доступ к рабочему столу Windows: предоставлен.'
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: совместный_доступ_к_рабочему_столу_windows_приложение_было_з_32
+  application: network_agent
+  name: 'Совместный доступ к рабочему столу Windows: приложение было запущено.'
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: совместный_доступ_к_рабочему_столу_windows_файл_был_изменен_33
+  application: network_agent
+  name: 'Совместный доступ к рабочему столу Windows: файл был изменен.'
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: совместный_доступ_к_рабочему_столу_windows_файл_был_прочитан_34
+  application: network_agent
+  name: 'Совместный доступ к рабочему столу Windows: файл был прочитан.'
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: удалено_наблюдаемое_приложение_35
+  application: network_agent
+  name: Удалено наблюдаемое приложение.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: true
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: true
+- id: управление_учетными_записями_информационные_сообщения_36
+  application: network_agent
+  name: 'Управление учетными записями: информационные сообщения'
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: установлено_наблюдаемое_приложение_37
+  application: network_agent
+  name: Установлено наблюдаемое приложение.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: true
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: true
+- id: установлено_приложение_38
+  application: network_agent
+  name: Установлено приложение.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: true
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: установлено_стороннее_приложение_39
+  application: network_agent
+  name: Установлено стороннее приложение.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: true
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: true
+- id: устройство_авторизовано_40
+  application: network_agent
+  name: Устройство авторизовано.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false
+- id: устройство_удалено_41
+  application: network_agent
+  name: Устройство удалено.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: true
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: true
+- id: файл_sudoers_успешно_восстановлен_до_референсного_значения_42
+  application: network_agent
+  name: Файл sudoers успешно восстановлен до референсного значения.
+  severity: Информационное сообщение
+  default_storage_days: 30
+  channels:
+    email: false
+    sms: false
+    executable: false
+    syslog: false
+    os_log_device: false
+    os_log_server: false

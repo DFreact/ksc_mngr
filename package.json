@@ -1,0 +1,19 @@
+{
+  "name": "ksc-management",
+  "private": true,
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel -r dev",
+    "build": "pnpm -r build",
+    "db:generate": "pnpm --filter @ksc/db generate",
+    "db:migrate": "pnpm --filter @ksc/db migrate:dev",
+    "db:seed": "pnpm --filter @ksc/db seed"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}

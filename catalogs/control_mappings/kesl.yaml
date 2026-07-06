@@ -1,0 +1,153 @@
+# Control mappings: KESL parameter states → threat vectors they cover
+# required_state.value must match the effective parameter value exactly
+
+# ─── File Threat Protection ───────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  parameter_name: "Enabled"
+  required_state:
+    value: true
+  coverage_strength: prevents
+  threat_vector_names:
+    - Фишинговое вложение в почте
+    - Drive-by компрометация через браузер
+  notes: >
+    Real-time file scanning intercepts malware written to disk before execution.
+    Core prevention control for file-based initial access vectors.
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  parameter_name: "Scan archives"
+  required_state:
+    value: true
+  coverage_strength: partial
+  threat_vector_names:
+    - Фишинговое вложение в почте
+    - Упакованное или обфусцированное ВПО
+  notes: >
+    Scanning inside archives prevents the classic "hide in zip" bypass. Without it,
+    malware packaged in archives evades real-time protection.
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "File Threat Protection"
+  parameter_name: "Action on threat detection"
+  required_state:
+    value: "Block"
+  coverage_strength: prevents
+  threat_vector_names:
+    - Фишинговое вложение в почте
+    - Drive-by компрометация через браузер
+    - Эксплуатация публично доступной службы
+  notes: >
+    "Block" (vs "Notify") ensures the malicious file cannot be accessed at all,
+    preventing execution even if the user attempts to open it manually.
+
+# ─── Network Threat Protection ────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Network Threat Protection"
+  parameter_name: "Enabled"
+  required_state:
+    value: true
+  coverage_strength: detects
+  threat_vector_names:
+    - Эксплуатация публично доступной службы
+    - Распространение шифровальщика по SMB/NFS
+    - Вредоносный shell-скрипт (bash/sh)
+  notes: >
+    Detects known exploit patterns, port scans, and anomalous network traffic.
+    Detection triggers an alert and enables response; does not block by itself.
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Network Threat Protection"
+  parameter_name: "Block attacking host"
+  required_state:
+    value: true
+  coverage_strength: partial
+  threat_vector_names:
+    - Эксплуатация публично доступной службы
+    - Распространение шифровальщика по SMB/NFS
+  notes: >
+    Upgrades detection to automated blocking of the attacking IP. Partial because
+    it activates only after the first detected attack packet, not proactively.
+
+# ─── Anti-Cryptor ─────────────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Anti-Cryptor"
+  parameter_name: "Enabled"
+  required_state:
+    value: true
+  coverage_strength: prevents
+  threat_vector_names:
+    - Шифрование локальных файлов шифровальщиком
+    - Распространение шифровальщика по SMB/NFS
+  notes: >
+    Monitors shared directories for mass-encryption patterns and blocks the
+    encrypting process. Key control for ransomware on file servers.
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Anti-Cryptor"
+  parameter_name: "Enabled"
+  required_state:
+    value: true
+  coverage_strength: compensating
+  threat_vector_names:
+    - Уничтожение данных (wiper)
+  notes: >
+    Anti-Cryptor's mass-write detection may catch early stages of wiper activity,
+    providing a compensating (not definitive) control.
+
+# ─── Device Control ───────────────────────────────────────────────────────────
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Device Control"
+  parameter_name: "Enabled"
+  required_state:
+    value: true
+  coverage_strength: detects
+  threat_vector_names:
+    - Заражение через съёмный носитель
+    - Кража данных на съёмный носитель
+  notes: >
+    Enabling Device Control activates monitoring. Coverage strength depends on
+    the Default device access setting — see below.
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Device Control"
+  parameter_name: "Default device access"
+  required_state:
+    value: "Block"
+  coverage_strength: prevents
+  threat_vector_names:
+    - Заражение через съёмный носитель
+    - Кража данных на съёмный носитель
+  notes: >
+    Block by default prevents any unregistered USB device from reading or writing.
+    Only devices in the trusted list are allowed. Most effective posture for
+    high-security environments.
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Device Control"
+  parameter_name: "Default device access"
+  required_state:
+    value: "Read-only"
+  coverage_strength: partial
+  threat_vector_names:
+    - Заражение через съёмный носитель
+    - Кража данных на съёмный носитель
+  notes: >
+    Read-only mode prevents writing data out (exfiltration) and prevents dropping
+    malware to the device. Infection from a malicious USB is still possible
+    if the user runs files from it manually.

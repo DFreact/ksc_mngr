@@ -1,0 +1,182 @@
+# KESL 12.1 — On-Demand Scan (ODS) task settings
+# These parameters configure scan tasks created in the Tasks section.
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "Scan archives"
+  value_type: bool
+  default_value: true
+  description: "Scan inside archive files during on-demand scans."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "Scan SFX archives"
+  value_type: bool
+  default_value: true
+  description: "Scan self-extracting archive files during on-demand scans."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "Scan packed objects"
+  value_type: bool
+  default_value: true
+  description: "Scan executables compressed with runtime packers during on-demand scans."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "Scan password-protected archives"
+  value_type: bool
+  default_value: false
+  description: "Log access to password-protected archives. Content cannot be scanned without the password."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "Scan only new and changed files"
+  value_type: bool
+  default_value: false
+  description: "Limit the scan to files created or modified since the previous scan run."
+  purpose: "Dramatically reduces scan duration on large file systems with mostly-static content."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "File types to scan"
+  value_type: enum
+  enum_options:
+    - "All files"
+    - "Files scanned by format"
+    - "Files scanned by extension"
+  default_value: "All files"
+  description: "Scope of file types included in the scan. 'Files scanned by format' uses content-based detection ignoring extension; 'By extension' uses extension only."
+  purpose: "Balance between scan thoroughness and performance. 'All files' is most thorough; format-based is a good middle ground."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "'All files' catches threats regardless of extension manipulation (renaming .exe to .jpg to evade scanning)."
+  tradeoffs_cons:
+    - "'All files' on a large NFS volume can take hours — use 'By format' as a practical compromise."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "Action on threat detection"
+  value_type: enum
+  enum_options:
+    - "Disinfect"
+    - "Delete"
+    - "Block"
+    - "Skip"
+  default_value: "Disinfect"
+  description: "Primary action taken when a threat is found during an on-demand scan."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "Action if disinfection fails"
+  value_type: enum
+  enum_options:
+    - "Delete"
+    - "Block"
+    - "Skip"
+  default_value: "Block"
+  description: "Fallback action when the primary action (Disinfect) cannot be completed."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "Heuristic analysis level"
+  value_type: enum
+  enum_options:
+    - "Disabled"
+    - "Light"
+    - "Standard"
+    - "Deep"
+  default_value: "Standard"
+  description: "Level of heuristic analysis applied during on-demand scans."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "Scan timeout per file (seconds)"
+  value_type: number
+  unit: "seconds"
+  default_value: 60
+  description: "Maximum time spent scanning a single file. Files exceeding the timeout are skipped and logged."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "Scan scope"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "path"
+        label: "Path to scan"
+        type: string
+      - key: "recursive"
+        label: "Include subdirectories"
+        type: bool
+      - key: "file_mask"
+        label: "File mask (blank = all)"
+        type: string
+      - key: "comment"
+        label: "Comment"
+        type: string
+  description: "List of directories and files included in the scan scope."
+  purpose: "Define what the scan covers. Common scopes: full system (/), home directories (/home), shared volumes (/mnt/nas)."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "Exclusions"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "path"
+        label: "Path / mask to exclude"
+        type: string
+      - key: "threat_name"
+        label: "Threat name to exclude (blank = all)"
+        type: string
+      - key: "comment"
+        label: "Justification"
+        type: string
+  description: "Paths or specific threat names excluded from on-demand scanning."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "CPU usage limit (%)"
+  value_type: number
+  unit: "%"
+  default_value: 50
+  description: "Maximum CPU percentage KESL may consume during a scan task. Protects production workloads from scan-induced latency."
+  purpose: "Schedule heavy scans during off-peak hours with full CPU, or set a limit for background scans running alongside production services."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Prevents scans from degrading application performance during business hours."
+  tradeoffs_cons:
+    - "Throttled scans take proportionally longer. A scan that would take 2 hours at 100% CPU may take 6+ hours at 30%."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "On-Demand Scan"
+  name: "Use iSwift technology"
+  value_type: bool
+  default_value: true
+  description: "Skip files whose hash has not changed since the last successful scan (hash-based incremental scanning)."
+  added_in_version: "12.0"

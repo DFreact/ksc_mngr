@@ -1,0 +1,153 @@
+# Extended protection and application criteria for automation rules
+
+# ─── Protection state criteria ────────────────────────────────────────────────
+
+- criteria_key: kesl_version
+  group: protection
+  value_type: string
+  operator_options: [equals, not_equals, greater_than, less_than, starts_with]
+  description: Версия Kaspersky Endpoint Security for Linux, установленной на устройстве
+
+- criteria_key: kesl_databases_age_days
+  group: protection
+  value_type: number
+  operator_options: [less_than, greater_than, equals]
+  description: Возраст антивирусных баз в днях (0 = только что обновлены)
+
+- criteria_key: kesl_last_full_scan_days
+  group: protection
+  value_type: number
+  operator_options: [less_than, greater_than, equals]
+  description: Сколько дней назад выполнялось последнее полное сканирование устройства
+
+- criteria_key: kesl_real_time_protection_enabled
+  group: protection
+  value_type: bool
+  operator_options: [equals]
+  description: Файловая защита в реальном времени (File Threat Protection) включена
+
+- criteria_key: kesl_network_protection_enabled
+  group: protection
+  value_type: bool
+  operator_options: [equals]
+  description: Защита от сетевых угроз (Network Threat Protection) включена
+
+- criteria_key: kesl_web_protection_enabled
+  group: protection
+  value_type: bool
+  operator_options: [equals]
+  description: Веб-защита (Web Threat Protection) включена
+
+- criteria_key: kesl_behavior_detection_enabled
+  group: protection
+  value_type: bool
+  operator_options: [equals]
+  description: Анализ поведения (Behavior Detection) включён
+
+- criteria_key: kesl_threats_count
+  group: protection
+  value_type: number
+  operator_options: [equals, greater_than, less_than]
+  description: Количество необработанных угроз на устройстве
+
+- criteria_key: kesl_unprocessed_threats
+  group: protection
+  value_type: bool
+  operator_options: [equals]
+  description: На устройстве есть необработанные угрозы (обнаруженные, но не устранённые)
+
+- criteria_key: license_status
+  group: protection
+  value_type: enum
+  operator_options: [equals, not_equals]
+  description: Статус лицензии Kaspersky (valid, expiring, expired, not_found)
+
+- criteria_key: license_days_remaining
+  group: protection
+  value_type: number
+  operator_options: [less_than, greater_than, equals]
+  description: Количество дней до истечения лицензии
+
+# ─── Virtualisation criteria ──────────────────────────────────────────────────
+
+- criteria_key: is_virtual_machine
+  group: virtualisation
+  value_type: bool
+  operator_options: [equals]
+  description: Устройство является виртуальной машиной (определяется по признакам гипервизора)
+
+- criteria_key: hypervisor_type
+  group: virtualisation
+  value_type: enum
+  operator_options: [equals, not_equals]
+  description: Тип гипервизора (VMware, KVM, Hyper-V, Xen, VirtualBox, unknown)
+
+- criteria_key: is_container_host
+  group: virtualisation
+  value_type: bool
+  operator_options: [equals]
+  description: Устройство является хостом контейнеров (обнаружен Docker или containerd)
+
+# ─── Network (extended) ───────────────────────────────────────────────────────
+
+- criteria_key: subnet
+  group: network
+  value_type: string
+  operator_options: [equals, not_equals, in_range, not_in_range]
+  description: Подсеть устройства в нотации CIDR (например, 10.0.1.0/24)
+
+- criteria_key: open_ports
+  group: network
+  value_type: string
+  operator_options: [contains, not_contains]
+  description: Открытые TCP-порты устройства (строка перечисления, например "22,80,443")
+
+- criteria_key: last_ip_change_days
+  group: network
+  value_type: number
+  operator_options: [less_than, greater_than, equals]
+  description: Сколько дней назад изменился IP-адрес устройства
+
+# ─── Application (extended) ──────────────────────────────────────────────────
+
+- criteria_key: package_manager
+  group: application
+  value_type: enum
+  operator_options: [equals, not_equals]
+  description: Пакетный менеджер ОС (apt, yum/dnf, zypper, pacman, unknown)
+
+- criteria_key: linux_distribution
+  group: application
+  value_type: string
+  operator_options: [equals, not_equals, contains, starts_with]
+  description: Дистрибутив Linux (Ubuntu, CentOS, RHEL, Debian, ALT, Astra, Ред ОС и т.д.)
+
+- criteria_key: kernel_version
+  group: application
+  value_type: string
+  operator_options: [equals, not_equals, greater_than, less_than, starts_with]
+  description: Версия ядра Linux (например, 6.1.0-amd64)
+
+- criteria_key: disk_free_gb
+  group: application
+  value_type: number
+  operator_options: [less_than, greater_than, equals]
+  description: Свободное место на системном разделе в ГБ
+
+- criteria_key: ram_gb
+  group: application
+  value_type: number
+  operator_options: [less_than, greater_than, equals]
+  description: Объём оперативной памяти устройства в ГБ
+
+- criteria_key: cpu_cores
+  group: application
+  value_type: number
+  operator_options: [less_than, greater_than, equals]
+  description: Количество логических ядер CPU
+
+- criteria_key: agent_version
+  group: application
+  value_type: string
+  operator_options: [equals, not_equals, greater_than, less_than, starts_with]
+  description: Версия Агента администрирования, установленного на устройстве

@@ -1,0 +1,57 @@
+# KESL 12.1 — Removable Drive Scan
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Removable Drive Scan"
+  name: "Scan removable drives on connection"
+  value_type: bool
+  default_value: false
+  description: "Automatically launch a scan when a removable drive (USB flash drive, external HDD, SD card) is connected."
+  purpose: "Immediately detect malware on newly connected removable media before the user can access infected files."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Catches autorun-style malware and infected files before the user browses the drive."
+    - "No user action required — protection is automatic."
+  tradeoffs_cons:
+    - "Slows down legitimate USB drive connections. Large drives take minutes to scan — users may find this frustrating."
+    - "USB drives are often connected in bulk during inventory operations; simultaneous scans may impact performance."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Removable Drive Scan"
+  name: "Scan type"
+  value_type: enum
+  enum_options:
+    - "Quick scan"
+    - "Full scan"
+  default_value: "Quick scan"
+  description: "Scan depth when a removable drive is connected: Quick scan checks executable files and common threat vectors; Full scan checks all files."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "'Full scan' provides the most thorough coverage — no file is missed."
+  tradeoffs_cons:
+    - "'Full scan' on a 128 GB USB drive can take 30+ minutes. Use 'Quick scan' for common-use workstations and 'Full scan' on high-security terminals."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Removable Drive Scan"
+  name: "Action on threat detection"
+  value_type: enum
+  enum_options:
+    - "Disinfect"
+    - "Delete"
+    - "Block"
+    - "Skip"
+  default_value: "Disinfect"
+  description: "Action taken when a threat is found on a connected removable drive."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Removable Drive Scan"
+  name: "Maximum drive size for auto-scan (GB)"
+  value_type: number
+  unit: "GB"
+  default_value: 0
+  description: "Skip auto-scan for drives larger than this threshold. 0 = no limit (scan all drives regardless of size)."
+  purpose: "Prevent extremely long scans by skipping auto-scan for large drives. Large drives should be scanned via scheduled on-demand tasks instead."
+  added_in_version: "12.0"

@@ -1,0 +1,35 @@
+- criteria_key: ip_address
+  group: network
+  value_type: string
+  operator_options: [equals, not_equals, in_range, not_in_range, starts_with]
+  description: IP-адрес устройства
+
+- criteria_key: ip_range
+  group: network
+  value_type: string
+  operator_options: [in_range, not_in_range]
+  description: IP-диапазон (CIDR или начало-конец)
+
+- criteria_key: dns_name
+  group: network
+  value_type: string
+  operator_options: [equals, not_equals, contains, starts_with, ends_with]
+  description: DNS-имя устройства
+
+- criteria_key: mac_address
+  group: network
+  value_type: string
+  operator_options: [equals, not_equals, starts_with]
+  description: MAC-адрес сетевого интерфейса
+
+- criteria_key: network_interface_type
+  group: network
+  value_type: enum
+  operator_options: [equals, not_equals]
+  description: Тип сетевого интерфейса (Ethernet, WiFi, VPN)
+
+- criteria_key: connection_profile
+  group: network
+  value_type: enum
+  operator_options: [equals, not_equals]
+  description: Профиль подключения (офис, вне офиса, VPN)

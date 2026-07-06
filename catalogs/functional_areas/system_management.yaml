@@ -1,0 +1,34 @@
+- name: connectivity
+  group: system_management
+  applicable_to_linux: true
+  description: "RDP-сессии, туннелирование, сохранение файлов с устройства. RDP — для Windows; на Linux ограниченно."
+
+- name: hardware_inventory
+  group: system_management
+  applicable_to_linux: true
+  description: "Просмотр/изменение реестра оборудования, связанные отчёты. Работает для Linux-агентов."
+
+- name: software_inventory
+  group: system_management
+  applicable_to_linux: true
+  description: "Инвентаризация ПО, отчёты об установленных приложениях. Работает для Linux-агентов."
+
+- name: os_deployment
+  group: system_management
+  applicable_to_linux: false
+  description: "Развёртывание ОС через PXE. Ориентировано на Windows-инфраструктуру."
+
+- name: vulnerability_patch_management
+  group: system_management
+  applicable_to_linux: false
+  description: "Управление уязвимостями и патчами (Windows Update). Для чистого Linux-парка не актуально."
+
+- name: remote_installation
+  group: system_management
+  applicable_to_linux: false
+  description: "Удалённая установка ПО через Windows-механизмы. Для Linux-парка не актуально."
+
+- name: network_access_control
+  group: system_management
+  applicable_to_linux: false
+  description: "NAC через Cisco. Для чистого Linux-парка не актуально."

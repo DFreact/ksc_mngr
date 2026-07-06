@@ -1,0 +1,173 @@
+# KESL 12.1 — General / Protection settings
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  name: "Self-defense"
+  value_type: bool
+  default_value: true
+  description: "Protects KESL processes, memory, and files from tampering by other processes, including those running with root privileges."
+  purpose: "Prevents attackers or malware from disabling KESL by killing its processes or deleting its files."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Blocks the most common attacker step after gaining root: disabling endpoint protection."
+    - "Monitored by KSC — any self-defense event generates a high-severity alert."
+  tradeoffs_cons:
+    - "Can interfere with legitimate system automation scripts that restart or manage KESL. Use the password-protected management API instead."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  name: "Password protection enabled"
+  value_type: bool
+  default_value: false
+  description: "Requires a password to modify KESL settings, disable protection, or stop the application from the command line."
+  purpose: "Prevents unauthorized or accidental disabling of protection on the endpoint, even by a local administrator."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Stops insider threat and malware from running 'kesl-control --stop-protection'."
+    - "Required for PCI-DSS and ISO 27001 compliance in many interpretations."
+  tradeoffs_cons:
+    - "Password must be managed and rotated — store in your secrets manager. Loss requires re-deployment."
+    - "Breaks runbook automation that invokes kesl-control directly — update scripts to use the API with credentials."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  name: "Password for protection management"
+  value_type: string
+  description: "Password required to stop protection or modify settings locally when password protection is enabled."
+  purpose: "Set via policy to ensure all endpoints share the same management password, rotated on schedule."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  name: "Allow user to disable protection temporarily"
+  value_type: bool
+  default_value: false
+  description: "Permits the local user to pause protection for a specified time period without the management password."
+  purpose: "Allow users to temporarily suppress protection for specific troubleshooting scenarios."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Reduces support ticket volume for power users who need to temporarily bypass protection for legitimate work."
+  tradeoffs_cons:
+    - "Any user with shell access can pause protection — this includes attackers who have obtained user-level access. Prefer keeping this off and using Change Management for planned exclusions."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  name: "Maximum protection pause duration (minutes)"
+  value_type: number
+  unit: "minutes"
+  default_value: 30
+  description: "Maximum number of minutes a user can pause protection if 'Allow user to disable protection temporarily' is enabled."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  name: "Write supplementary events to OS log"
+  value_type: bool
+  default_value: false
+  description: "Write KESL events to the Linux system journal (journald / syslog) in addition to the KSC event database."
+  purpose: "Feed KESL events into a centralized syslog pipeline (SIEM, rsyslog, fluentd) without requiring KSC SIEM integration."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Ensures events are visible in centralized log management even if KSC connection is temporarily lost."
+    - "Required for many SIEM integrations that pull from syslog."
+  tradeoffs_cons:
+    - "Doubles event storage; high-volume environments (file servers) may produce significant journal growth."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  name: "Create dump files on application crash"
+  value_type: bool
+  default_value: false
+  description: "Write a memory dump file when KESL crashes. Useful for diagnosing and reporting bugs to Kaspersky support."
+  purpose: "Diagnostic feature — enable only when investigating a specific crash; disable in production."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Essential for reproducing and reporting crashes to Kaspersky Technical Support."
+  tradeoffs_cons:
+    - "Dump files may contain sensitive data (file names, memory contents). Restrict dump directory permissions and clean up after support session."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  name: "Use KSN for scanning"
+  value_type: bool
+  default_value: true
+  description: "Allow KESL to query the Kaspersky Security Network reputation database during file and URL scanning."
+  purpose: "KSN provides real-time cloud reputation lookups for files and URLs not yet in the local database."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Detects new threats hours or days before the local database is updated — critical for zero-day coverage."
+    - "Reduces false positives for trusted software via crowd-sourced reputation."
+  tradeoffs_cons:
+    - "Requires network connectivity to the KSN proxy (Administration Server or distribution point). If the proxy is unavailable and direct fallback is disabled, cloud lookups fail silently."
+    - "Every KSN query sends a file hash and metadata to Kaspersky servers — review your data classification policy."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  name: "Use Extended KSN"
+  value_type: bool
+  default_value: false
+  description: "Participate in the extended Kaspersky Security Network, sending additional telemetry including suspicious files for cloud analysis."
+  purpose: "Improves threat intelligence quality for all KSN participants; enables submission of suspicious objects."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Faster detection of novel malware variants — extended data helps Kaspersky create signatures sooner."
+    - "Suspicious file submission can lead to retroactive detection for previous incidents."
+  tradeoffs_cons:
+    - "Sends file samples (not just hashes) to Kaspersky cloud infrastructure — may violate DLP policies or regulatory requirements (GDPR, state secrets, etc.)."
+    - "Higher network bandwidth consumption than standard KSN."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  name: "Proxy server for KSN"
+  value_type: enum
+  enum_options:
+    - "Administration Server"
+    - "Distribution Point"
+    - "Direct connection"
+  default_value: "Administration Server"
+  description: "Route through which KSN queries are proxied to Kaspersky cloud."
+  purpose: "In isolated networks, all cloud traffic must be routed through a controlled proxy — typically the Administration Server acting as KSN Proxy."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "'Administration Server' centralises KSN traffic — easier to audit, throttle, and block if needed."
+  tradeoffs_cons:
+    - "'Direct connection' bypasses the proxy — use only if the proxy is unavailable and you accept cloud-direct traffic from endpoints."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  name: "Notify about virus outbreak"
+  value_type: bool
+  default_value: true
+  description: "Generate a high-severity alert when the number of malware detections on this host exceeds the outbreak threshold within a time window."
+  purpose: "Early warning for coordinated attacks affecting multiple files simultaneously."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  name: "Virus outbreak threshold (detections)"
+  value_type: number
+  unit: "detections"
+  default_value: 3
+  description: "Number of malware detections within the outbreak detection window that triggers an outbreak alert."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "General"
+  name: "Virus outbreak detection window (hours)"
+  value_type: number
+  unit: "hours"
+  default_value: 1
+  description: "Time window in hours over which detections are counted toward the virus outbreak threshold."
+  added_in_version: "12.0"

@@ -1,0 +1,38 @@
+# ─── Личное / не для публикации ───────────────────────────────
+# Всё, что не должно попадать в git, лежит здесь:
+_private/
+
+# Данные и настройки Claude Code
+.claude/
+
+# ─── Секреты и окружение ──────────────────────────────────────
+.env
+*.env.local
+
+# ─── Зависимости и артефакты сборки ───────────────────────────
+node_modules/
+dist/
+apps/web/dist/
+apps/api/dist/
+*.tsbuildinfo
+
+# Prisma generated client
+packages/db/node_modules/.prisma/
+**/generated/
+
+# Docker volumes (локальные)
+postgres_data/
+
+# ─── Прочее ───────────────────────────────────────────────────
+.DS_Store
+*.log
+npm-debug.log*
+
+# Личные документы и медиа в КОРНЕ (на случай, если окажутся вне _private/).
+# Ограничено корнем — ассеты внутри apps/ не затрагиваются.
+/*.docx
+/*.xlsx
+/*.pptx
+/*.png
+/*.jpg
+/*.jpeg

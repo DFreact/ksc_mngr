@@ -1,0 +1,84 @@
+# KESL 12.1 — Network Threat Protection (IDS/IPS)
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Network Threat Protection"
+  name: "Enabled"
+  value_type: bool
+  default_value: true
+  description: "Enable real-time detection of network attacks using signature-based intrusion detection (IDS)."
+  purpose: "Analyses incoming network traffic against a database of attack signatures: port scans, exploit attempts, SYN floods, and known network-level malware communication patterns."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Detects port scans, SYN floods, SMB exploits, and known C2 protocol patterns in real time."
+    - "Works at the network level — complements application-level scanning."
+  tradeoffs_cons:
+    - "May produce false positives in high-traffic environments or with non-standard protocols. Tune exclusions before deploying to network-facing servers."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Network Threat Protection"
+  name: "Block attacking host"
+  value_type: bool
+  default_value: true
+  description: "Automatically add the source IP of a detected attacker to a temporary block list."
+  purpose: "Automated containment — stops the attack immediately without waiting for manual intervention."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Immediately isolates the attacker, reducing dwell time to near zero for detected attacks."
+    - "Particularly effective against automated scanners and worm propagation."
+  tradeoffs_cons:
+    - "Risk of blocking legitimate infrastructure: NAT gateways, load balancers, or monitoring probes that probe multiple ports. Add these to the exclusion list."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Network Threat Protection"
+  name: "Block duration (minutes)"
+  value_type: number
+  unit: "minutes"
+  default_value: 60
+  description: "Duration (in minutes) to keep an attacking host blocked after a network threat is detected."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Long block duration (60+ min) prevents repeated attack attempts in the same session."
+  tradeoffs_cons:
+    - "Very long durations (hours) will keep a false-positive blocked for a long time. Use short durations (5-15 min) during initial rollout and extend after validating."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Network Threat Protection"
+  name: "Detect port scanning"
+  value_type: bool
+  default_value: true
+  description: "Detect sequential port scanning from a single source IP as a network attack."
+  purpose: "Port scanning is the reconnaissance step that precedes most network attacks. Early detection provides advance warning."
+  added_in_version: "12.0"
+  tradeoffs_pros:
+    - "Alerts on attacker reconnaissance before the actual exploit attempt, giving more response time."
+  tradeoffs_cons:
+    - "Vulnerability scanners (Nessus, OpenVAS) used by your own security team will trigger this. Add scanner IPs to exclusions."
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Network Threat Protection"
+  name: "Detect DoS/flood attacks"
+  value_type: bool
+  default_value: true
+  description: "Detect SYN flood, UDP flood, and ICMP flood denial-of-service patterns targeting this host."
+  added_in_version: "12.0"
+
+- application_name: "KESL"
+  application_version: "12.1"
+  category: "Network Threat Protection"
+  name: "Exclusions (IP addresses not to block)"
+  value_type: list
+  list_schema:
+    columns:
+      - key: "address"
+        label: "IP address or CIDR"
+        type: string
+      - key: "comment"
+        label: "Justification"
+        type: string
+  description: "List of IP addresses or CIDR ranges that should never be automatically blocked by Network Threat Protection."
+  purpose: "Protect legitimate infrastructure from false-positive blocking: monitoring systems, vulnerability scanners, load balancers, NAT gateways."
+  added_in_version: "12.0"
